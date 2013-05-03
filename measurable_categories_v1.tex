@@ -1,0 +1,212 @@
+\documentclass[letterpaper,10pt,oneside,onecolumn,reqno]{amsart}
+%leqno = left hand equation numbering
+%oneside vs. twoside = how many pages are you looking at at a time?
+%onecolumn vs. twocolumn = obvious
+
+%%% Packages
+\usepackage{amsmath, amssymb}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{refcheck}
+
+\onehalfspace
+\setcounter{tocdepth}{2}	% If this equals 1, the table of contents does not include subsections
+%\includeonly{}
+
+%\def\singlespaced{\baselineskip=\normalbaselineskip}
+
+
+%%% Sets
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\C}{\mathcal C}
+\newcommand{\D}{D}
+\newcommand{\E}{\mathbb E}
+\newcommand{\F}{\mathcal F}
+\renewcommand{\H}{\mathcal H}
+\newcommand{\I}{\mathcal I}
+\newcommand{\K}{\mathcal K}
+\newcommand{\M}{\mathcal M}
+%\newcommand{\MM}{\operatorname{M}}
+\newcommand{\N}{\mathcal N}
+\newcommand{\NN}{\mathbb N}
+\renewcommand{\P}{\mathbb P}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\T}{\mathcal T}
+\newcommand{\V}{\mathcal V}
+\newcommand{\W}{\mathcal W}
+\newcommand{\X}{\mathcal X}
+\newcommand{\Z}{\mathbb Z}
+
+\renewcommand{\c}{{\operatorname{c}}}
+\newcommand{\e}{\mathrm{e}}				% Euler's constant.
+\renewcommand{\d}{\mathrm{d}}				% Differential operator sans space.
+\newcommand{\sd}{\, \mathrm{d}}		% Differential operator with space.
+\renewcommand{\i}{\mathrm{i}}				% Square root of $-1$.
+\newcommand{\oo}{\infty}
+\newcommand{\Var}{\operatorname{Var}}
+
+\newcommand{\tr}{\operatorname{tr}}
+
+\newcommand{\ent}{\operatorname{ent}}
+
+\newcommand{\arginf}{\operatorname{arginf}}
+\newcommand{\argsup}{\operatorname{argsup}}
+
+% Environments
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{pro}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ass}[thm]{Assumption}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{exa}[thm]{Example}
+%\theoremstyle{alpha}
+\newtheorem{hyp}{Hypothesis}
+
+
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\InnAut}{\operatorname{InnAut}}
+
+\newcommand{\Euc}{\operatorname{Euc}}
+\renewcommand{\O}{\operatorname{O}}
+\newcommand{\SO}{\operatorname{SO}}
+
+\newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
+\newcommand{\DynSys}{\catname{DynSys}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Meas}{\catname{Meas}}
+\newcommand{\Top}{\catname{Top}}
+\newcommand{\LieGrp}{\catname{LieGrp}}
+\newcommand{\HomSp}{\catname{HomSp}}
+\newcommand{\HomMan}{\catname{HomMan}}
+%\newcommand{\SmoothMan}{\catname{SmoothMan}}
+\newcommand{\Man}{\catname{Man}}
+\newcommand{\VectBund}{\catname{VectBund}}
+\newcommand{\Klein}{\catname{Klein}}
+
+\newcommand{\notzero}{\emptyset}
+%\newcommand{\notzero}{{\!\not{\,0}}}
+
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\renewcommand{\tilde}[1]{\widetilde{#1}}
+
+\newcommand{\meet}{\wedge}
+\newcommand{\join}{\vee}
+\newcommand{\eval}{\operatorname{eval}}
+\newcommand{\cov}{\operatorname{cov}}
+\newcommand{\var}{\operatorname{var}}
+\newcommand{\std}{\operatorname{std}}
+\newcommand{\esssup}{\operatorname{ess\,sup}}
+
+\newcommand{\lleq}{\ \underline{\ll}\ }
+
+\renewcommand{\a}{\mathbf{a}}
+\newcommand{\va}{\mathbf{\check a}}
+\newcommand{\q}{\mathbf{q}}
+\newcommand{\vvarphi}{\check \varphi}
+
+\newcommand{\daggerdagger}{{\dagger\dagger}}
+
+\newcommand{\symdiff}{{\,\triangle\,}}
+
+%\newcommand{\tom}[1]{\textbf{{\color{ForestGreen}#1}}}
+
+\newcommand{\tom}[1]{{\textbf{\color{ForestGreen}\#}{\color{ForestGreen}\{\emph{#1}\}}}}
+\newcommand{\jake}[1]{{\textbf{\color{ForestGreen}\#}{\color{ForestGreen}\{\emph{#1}\}}}}
+
+%\newcommand{\tom}[1]{\textbf{{\color{ForestGreen}\#}}\{#1\}}
+
+\author{Tom LaGatta and Jake Miller}
+\title{Ergodic Ideals}
+\date{February 2013}
+
+
+
+\begin{document}
+
+\maketitle
+
+	\textbf{Very rough draft. Please do not distribute.}
+
+	Goal: ergodic averages from the structural viewpoint. 
+
+	Measurable space $(X, \X)$, along with a measurable function $f : X \to X$. Assume that $\N$ is an ideal on $X$,\footnote{\tom{what is an ideal?}} and that the action of $f$ is ergodic with respect to $\N$.\footnote{\tom{what does this mean?}}
+	
+	
+%	$\frac 1 N \sum_{n=1}^N \int_X \f( a^n(x) ) \, \P(\d x)$.
+	
+%	$\frac 1 N \sum_{n=1}^N f(a^n(x))$
+
+	\section{Measure Formulation}
+
+	Let $(X,\X)$ be a measurable space. \tom{Describe measurable subsets as ``events''.}
+	
+	Let $T = \NN$ be the natural numbers, and let $a^t : X \to X$ be a measurable action on the space.\footnote{That is, $a^{t'} \circ a^t = a^{t' + t}$ and $a^{0} = 1_X$, the identity map on $X$.} We define the inverse maps by $a^{-t} : \X \to \X$, noting that they go in the opposite direction. Formally, $a : T \to \End(X)$.
+	
+	
+	
+	Let $\P$ be a stationary, ergodic measure on $X$. As a measure, $\P : \X \to [0,1]$ is a countably additive function.
+	
+	Stationarity means that $a^t_* \P = \P$.\footnote{That is, $\P \circ a^{-t} = \P$.} Ergodic means that
+		$$\mbox{if $\P( A \,\triangle\, a^{-t} A ) = 0$ for all $t \in T$, then $\P(A) = 0$ or $\P(A^c) = 0$.}$$
+
+	\tom{What is a conditional expectation? $\E(f|\C)$ is a function $X \to \R$ which satisfies certain properties.} 
+	
+	
+	
+
+	\tom{Get to Birkhoff-Khinchin ergodic theorem}
+	
+		\begin{thm}[Birkhoff-Khinchin Ergodic Theorem]
+			
+		\end{thm}
+		\begin{proof}
+			
+		\end{proof}
+		
+		\begin{cor}[Strong Law of Large Numbers]
+		
+		\end{cor}
+
+	\section{Ideal Formulation}
+
+	A subset $\N \subseteq \X$ is called an ideal if it is closed under countable unions, and is downward closed. That is, if $\{ N_i \} \subseteq \N$ is a countable set of measurable events, then $\bigcup N_i \in \N$; and if $N \in \N$ and $A \in \X$ with $A \subseteq N$, then $A \in \N$.
+
+	We say that $\N$ is an ergodic ideal with respect to the $T$-action described by $a^t$ if:
+		$$\mbox{if $A \,\triangle\, a^{-t} A \in \N$ for all $t \in T$, then $A \in \N$ or $A^c \in \N$.}$$
+
+
+%	\section{Measurable Categories}
+
+	
+
+
+\end{document}		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
