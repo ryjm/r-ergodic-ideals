@@ -7,7 +7,7 @@
 \usepackage{amsmath, amssymb}
 \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
 \usepackage{setspace}
-\usepackage{hyperref}
+% \usepackage{hyperref}
 \usepackage{enumerate}
 \usepackage{wrapfig}
 \usepackage{graphicx}
@@ -15,6 +15,7 @@
 \usepackage{color}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{refcheck}
+\usepackage{dsfont}             % for indicator function \mathds{one}
 
 \onehalfspace
 \setcounter{tocdepth}{2}	% If this equals 1, the table of contents does not include subsections
@@ -47,6 +48,8 @@
 \newcommand{\X}{\mathcal X}
 \newcommand{\Z}{\mathbb Z}
 
+\newcommand{\one}{\mathds{1}}      % indicator function
+
 \renewcommand{\c}{{\operatorname{c}}}
 \newcommand{\e}{\mathrm{e}}				% Euler's constant.
 \renewcommand{\d}{\mathrm{d}}				% Differential operator sans space.
@@ -61,6 +64,9 @@
 
 \newcommand{\arginf}{\operatorname{arginf}}
 \newcommand{\argsup}{\operatorname{argsup}}
+
+\newcommand{\sup}{\operatorname{sup}}
+\newcommand{\inf}{\operatorname{inf}}
 
 % Environments
 \theoremstyle{definition}
@@ -128,7 +134,7 @@
 %\newcommand{\tom}[1]{\textbf{{\color{ForestGreen}#1}}}
 
 \newcommand{\tom}[1]{{\textbf{\color{ForestGreen}\#}{\color{ForestGreen}\{\emph{#1}\}}}}
-\newcommand{\jake}[1]{{\textbf{\color{ForestGreen}\#}{\color{ForestGreen}\{\emph{#1}\}}}}
+\newcommand{\jake}[1]{{\textbf{\color{Purple}\#}{\color{Purple}\{\emph{#1}\}}}}
 
 %\newcommand{\tom}[1]{\textbf{{\color{ForestGreen}\#}}\{#1\}}
 
@@ -157,40 +163,150 @@
 
 	Let $(X,\X)$ be a measurable space. \tom{Describe measurable subsets as ``events''.}
 	
-	Let $T = \NN$ be the natural numbers, and let $a^t : X \to X$ be a measurable action on the space.\footnote{That is, $a^{t'} \circ a^t = a^{t' + t}$ and $a^{0} = 1_X$, the identity map on $X$.} We define the inverse maps by $a^{-t} : \X \to \X$, noting that they go in the opposite direction. Formally, $a : T \to \End(X)$.
+	Let $K = \NN$ be the natural numbers, and let $a^k : X \to X$, where $k \in K$, be a measurable action on the space.\footnote{That is, $a^{k'} \circ a^k = a^{k' + k}$ and $a^{0} = 1_X$, the identity map on $X$.} We define the inverse maps by $a^{-k} : \X \to \X$, noting that they go in the opposite direction. Formally, $a : K \to \End(X)$. 
 	
 	
 	
-	Let $\P$ be a stationary, ergodic measure on $X$. As a measure, $\P : \X \to [0,1]$ is a countably additive function.
+	Let $\P$ be a stationary (invariant) measure on $X$. This means that for each $a^{k}$ we have $\P(a^{-k}(A)) = \P(A)$ for all $k \in K$ and $A \in \X$.  (As a measure, $\P : \X \to [0,1]$ is a countably additive function - for $\P$ to be a probability measure we have must $\P(X) = 1$).
 	
-	Stationarity means that $a^t_* \P = \P$.\footnote{That is, $\P \circ a^{-t} = \P$.} Ergodic means that
-		$$\mbox{if $\P( A \,\triangle\, a^{-t} A ) = 0$ for all $t \in T$, then $\P(A) = 0$ or $\P(A^c) = 0$.}$$
+	In other words, stationarity means that $a^k_* \P = \P$ where $a_{*}^k$ is the pushforward\footnote{That is, $\P \circ a^{-k} = \P$.} of $\P$. We say that $\P$ is ergodic with respect to $a^k$ if
+		$$\mbox{$\P( A \,\triangle\, a^{-k} A ) = 0$ for all $k \in K$, then $\P(A) = 0$ or $\P(A^c) = 0$.}$$
 
-	\tom{What is a conditional expectation? $\E(f|\C)$ is a function $X \to \R$ which satisfies certain properties.} 
-	
-	
-	
+The expectation of $f$ is defined as the Lebesgue integral 
 
-	\tom{Get to Birkhoff-Khinchin ergodic theorem}
-	
-		\begin{thm}[Birkhoff-Khinchin Ergodic Theorem]
-			
-		\end{thm}
-		\begin{proof}
-			
-		\end{proof}
-		
-		\begin{cor}[Strong Law of Large Numbers]
-		
-		\end{cor}
+\begin{align*}
+\E(f) &= \int\limits_{X}fdP \\
+&= \int\limits_{X}f(x)P(dw) \\
+\end{align*}
+
+The conditional expectation of $f$ given the sub-$\sigma$-algebra $\C \subset \X$ is a $\C$-measurable function $\E(f|\C): X \to \R$ where $\int\limits_{X}\E(f|\C)(\omega)\P(d\omega)=\int\limits_{X}f(\omega)\P(d\omega)$ 
 
 	\section{Ideal Formulation}
 
 	A subset $\N \subseteq \X$ is called an ideal if it is closed under countable unions, and is downward closed. That is, if $\{ N_i \} \subseteq \N$ is a countable set of measurable events, then $\bigcup N_i \in \N$; and if $N \in \N$ and $A \in \X$ with $A \subseteq N$, then $A \in \N$.
 
-	We say that $\N$ is an ergodic ideal with respect to the $T$-action described by $a^t$ if:
-		$$\mbox{if $A \,\triangle\, a^{-t} A \in \N$ for all $t \in T$, then $A \in \N$ or $A^c \in \N$.}$$
+	We say that $\N$ is an ergodic ideal with respect to the $K$-action described by $a^k$ if:
+		$$\mbox{if $A \,\triangle\, a^{-k} A \in \N$ for all $k \in K$, then $A \in \N$ or $A^c \in \N$.}$$
 
+\section{Classical Theorems}
+	
+		\begin{thm}[Birkhoff-Khinchin Ergodic Theorem]
+			The Birkhoff-Khinchin Ergodic Theorem can be formulated as follows: Given the probability space $(X,\X, \P)$ , a measurable function $f : X \to V$ \jake{what is $V$? Let it be $\R$ for now. Without $\R$ we would need a different proof of this that isn't dependent on $f$ being real valued.} with $\E(|f|) \leq \infty$, and $T$ a measure preserving map \jake{Should generalize this to a monoid (as we did above) later}, we have  
+
+$$\mbox{$\lim_{n \to \infty}\frac{1}{n}\sum\limits_{k=0}^{n-1} f(T^kx) = \E(f | \C)$}$$ 
+almost surely. 
+
+If $T$ is ergodic, then we have
+$$\mbox{$\lim_{n \to \infty}\frac{1}{n}\sum\limits_{k=0}^{n-1} f(T^kx) = \E(f)$}$$
+		\end{thm}
+We will prove the ergodic version first. To do this, we first need to prove a lemma:
+
+\begin{lem}
+Define the maximum of the ergodic averages $Mf(x) = \sup_{n \geq 1} \frac{1}{n}\sum\limits_{k=0}^{n-1} f(T^k x)$ and let $\{x \in X | Mf(x) > 0\} := {\{Mf>0\}}$ Then we have
+
+$$\mbox{$\E(f)_{\{Mf>0\}} := \int\limits_{\{Mf>0\}} fdP \geq 0$}$$
+\end{lem}
+
+\begin{proof}
+Note that when $Mf(x) > 0$ we have
+\begin{align*}
+(Mf \circ T)(x) &= \sup_{n \geq 1} \frac{1}{n}\sum\limits_{k=0}^{n-1} f(T^k T(x)) \\
+&= \sup_{n \geq 1} \frac{1}{n}\sum\limits_{k=1}^{n} f(T^k(x)) \\
+&= Mf(x) - f(x) \\
+\end{align*}
+
+So we must have that $(Mf \circ T)(x) + f(x) = Mf(x)$ (also note that
+ $-f(x) = (Mf \circ T)(x) - Mf(x)$ - we will take advantage of this later), and thus 
+
+\begin{equation}
+\E(f)_{\{Mf>0\}} = \E(Mf)_{\{Mf>0\}} - \E(Mf \circ T)_{\{Mf>0\}} 
+\end{equation}
+
+
+Since the case when $n=1$ ensures that $\frac{1}{n}\sum\limits_{k=0}^{n-1}f(T^k x) = 0$, the supremum  over $n \geq 1$ of the expression on the left  must be at least $0$, which means that $Mf \geq 0$ for all $n$ and thus $\E(Mf)_{\{Mf>0\}} = \E(Mf)$. 
+
+For ease of notation, define the operator $Ug = g \circ T$ for some measurable $g$ with finite expectation so that (1) becomes
+
+\begin{equation}
+\E(f)_{\{Mf>0\}} = \E(Mf) - \E(UMf)_{\{Mf>0\}} 
+\end{equation}
+
+Note that $\E(|Ug|) \geq |\E(Ug)|$ (follows from $X \leq Y \implies \E(X) \leq \E(Y)$). Then by a change of variables we can write
+\begin{align*}
+\E(|Ug|) &\geq |\int\limits_{X} g \circ T dP| \\
+&= |\int\limits_{X} g d(PT^{-1})| \\
+&= |\int\limits_{X} g PT^{-1}(dx)| \\
+&= |\int\limits_{X} g P(T^{-1}dx)| \\
+&= |\int\limits_{X} g P(dx)| \\
+&= |\E(g)|
+\end{align*}
+
+However, this inequality is defined over the entire space $X$ while we are interested only in $\{Mf > 0\}$. We can see from the above calculation that measure preserving property of $T$ is what gives us such a nice answer - but this requires that the domain and the codomain be the same. This means that if we restrict $T$ to the set $\{Mf > 0\}$ (as we are are implicitly doing with $\E(UMf)$), we would like $Tx \in \{Mf > 0\}$ for any $x \in \{Mf > 0\}$ - so this set should be invariant under the mapping $T$. 
+
+It turns out that this will be the case, and it will follow that when $g=Mf$ we will have
+
+$$\mbox{$\E(|UMf|)_{\{Mf>0\}} = \E(UMf)_{\{Mf>0\}}$ }$$
+
+To see this, define the sets 
+
+\begin{align*}
+G_1 &= \{f(x) > 0\} \\
+G_2 &= \{f(x) \leq 0, f(x) + f(Tx) > 0\} \\
+G_3 &= \{f(x) \leq 0, f(x) + f(Tx) \leq 0, f(x) + f(Tx) + f(T^2x) > 0\} \\
+&\vdots \\
+\end{align*}
+
+Each of these sets are disjoint by construction. Also, if $x\in{\{Mf>0\}}$ then it must be in $G_i$ for some $i$ and vice versa, since by definition these sets enumerate all the possible situations in which $Mf(x) > 0$ - thus $\cup_i G_i = {\{Mf(x) > 0\}}$. Now consider the case where we take a finite union of these sets. Since the function $\one_{\cup_i^n}f$ converges to $\one_{\{Mf > 0\}}f$ and $\one_{\cup_i^n}f \leq Mf$, by the dominated convergence theorem we have
+
+\begin{equation}
+\lim_{n \to \infty}\E(\one_{\cup_i^n}f) = \E(f)_{\{Mf>0\}} \\
+\end{equation}
+
+This shows that we only have to consider the invariance of $G:=\cup_i^nG_i$ under $T$ rather than the entirety of $\{Mf>0\}$. 
+
+If $x \in G_i$ we have 
+
+$$\mbox{$f(x) \leq 0$ while $f(x)+f(Tx)+..+f(T^{i-1}x) > 0$ which shows that $f(Tx)+...+f(T^{i-1}x) > 0$}$$
+
+The last equation can be rewritten as $f(Tx)+f(T(Tx))+..+f(T^{i-2}(Tx)) > 0$ - thus $Tx \in G$, i.e $G$ is $T$-invariant and we have $\E(|UMf|)_{\{Mf>0\}} = \E(UMf)_{\{Mf>0\}}$.
+
+Now we can write 
+\begin{align*}
+\E(UMf)_{\{Mf>0\}} &\geq |\E(Mf)| \\
+&\geq \E(Mf)
+\end{align*}
+
+Thus $\E(UMf)_{\{Mf>0\}}-\E(Mf) \geq 0$. Since $\E(f)_{\{Mf>0\}} \geq \E(-f) = \E(UMf)-\E(Mf)$, we have that $\E(f)_{\{Mf>0\}} \geq 0$. A useful consequence of this lemma is the following.
+
+\end{proof}
+
+\begin{cor}
+$$\mbox{$\E(f)_{\{Mf>\alpha\}} := \int\limits_{\{Mf>\alpha\}} fdP \geq \alpha \P(\{Mf>\alpha\}$}$$
+\end{cor}
+\begin{proof}
+Define $f' = f - \alpha$. Then $\{Mf' > 0\}$ implies that $\{Mf > \alpha\}$ and we have
+$$\mbox{$\int\limits_{\{Mf'>0\}} f'dP \geq 0 \implies \int\limits_{\{Mf>\alpha\}} (f-\alpha)dP \geq 0$}$$
+
+Thus we have $\int\limits_{\{Mf>\alpha\}} f \geq \alpha\int\limits_{\{Mf>\alpha\}}dP = \alpha\P(\{Mf>\alpha\})$.
+\end{proof}
+
+
+
+
+		\begin{proof}
+Now we prove the main Birkhoff-Khinchin theorem. For ease of notation, let 
+
+$$\mbox{$\frac{1}{n}\sum\limits_{k=0}^{n-1} f(T^kx) := \frac{1}{n}S_n$}$$
+
+In order for the limit of this expression to exist, both the limsup and the liminf must be equal almost surely (i.e except on a set of measure zero). The idea here will be to identify with each of the real numbers $\alpha, \beta \in \R,$ $\alpha > \beta$ that are 'sandwiched' in between the limsup and liminf a set $O_{\alpha,\beta}$ and show that this set is measure zero (this is where we use the above lemma) - then, since we only have countable additivity of measure, we will take the union of these sets over all \emph{rational} $\alpha$ and $\beta$. This union will be measure zero and thus the limsup and liminf will agree almost surely since the rationals are dense in the reals.
+
+Define $O_{\alpha,\beta} = \{x \in X | liminf_{n \to \infty}\frac{1}{n}S_n < \beta < \alpha < limsup_{n \to \infty}\frac{1}{n}S_n\}$ for each $\alpha, \beta \in \R$
+
+		\end{proof}
+		
+		\begin{cor}[Strong Law of Large Numbers]
+		
+		\end{cor}
 
 %	\section{Measurable Categories}
 
