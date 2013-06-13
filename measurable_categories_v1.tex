@@ -1,3 +1,4 @@
+
 \documentclass[letterpaper,10pt,oneside,onecolumn,reqno]{amsart}
 %leqno = left hand equation numbering
 %oneside vs. twoside = how many pages are you looking at at a time?
@@ -64,9 +65,6 @@
 
 \newcommand{\arginf}{\operatorname{arginf}}
 \newcommand{\argsup}{\operatorname{argsup}}
-
-\newcommand{\sup}{\operatorname{sup}}
-\newcommand{\inf}{\operatorname{inf}}
 
 % Environments
 \theoremstyle{definition}
@@ -300,12 +298,38 @@ $$\mbox{$\frac{1}{n}\sum\limits_{k=0}^{n-1} f(T^kx) := \frac{1}{n}S_n$}$$
 
 In order for the limit of this expression to exist, both the limsup and the liminf must be equal almost surely (i.e except on a set of measure zero). The idea here will be to identify with each of the real numbers $\alpha, \beta \in \R,$ $\alpha > \beta$ that are 'sandwiched' in between the limsup and liminf a set $O_{\alpha,\beta}$ and show that this set is measure zero (this is where we use the above lemma) - then, since we only have countable additivity of measure, we will take the union of these sets over all \emph{rational} $\alpha$ and $\beta$. This union will be measure zero and thus the limsup and liminf will agree almost surely since the rationals are dense in the reals.
 
-Define $O_{\alpha,\beta} = \{x \in X | liminf_{n \to \infty}\frac{1}{n}S_n < \beta < \alpha < limsup_{n \to \infty}\frac{1}{n}S_n\}$ for each $\alpha, \beta \in \R$
+Define $O_{\alpha,\beta} = \{x \in X | \liminf \frac{1}{n}S_n < \beta < \alpha < \limsup\frac{1}{n}S_n\}$ for each $\alpha, \beta \in \R$. If we can show that $O_{\alpha,\beta}$ is a $T$-invariant set, we can make use the lemma proved above.
+
+For $\limsup \frac{1}{n}S_n$ - considering each new value of $n$ as building up a sequence of these ergodic averages, the limsup looks at the \emph{least upper bound} all successive subsequences obtained by 'cutting off' the first element of the preceding sequence, and considers each of these bounds as elements of a new sequence (by definition this sequence must be non-increasing). It then finds the \emph{largest lower bound} of this sequence, which will correspond to the subsequence of ergodic averages which have the smallest upper bound.
+
+Thus we know that for any $x \in O_{\alpha,\beta}$, this largest lower bound will always be greater than $\alpha$ and $\beta$ - there is a subsequence whose upper bound is greater than these. But for any such subsequence, by definition replacing $x$ with $Tx$ will give another subsequence whose supremum is no less than the previous one. So $Tx$ preserves the necessary ordering of the limsup. 
+
+A similar argument holds for the liminf. 
+
+So we have that $O_{\alpha,\beta}$ is a $T$-invariant set. It is also a subset of $\{Mf > \beta\}$. Restricting $T$ to this set and applying the previous lemma, we have that
+
+\begin{equation}
+\E(f)_{O_{\alpha,\beta}}\geq\alpha \P(O_{\alpha,\beta})
+\end{equation}
+
+Also, note that $O_{\alpha,\beta} \subset \{M(-f) > -\beta\}$ so considering $-f$ we have 
+
+\begin{align*}
+\E(-f)_{O_{\alpha,\beta}}&\geq-\beta \P(O_{\alpha,\beta}) \\
+\E(f)_{O_{\alpha,\beta}}&\leq\beta \P(O_{\alpha,\beta}) \\
+\end{align*}
+
+and since we required $\alpha > \beta$ we must have that $\P(O_{\alpha,\beta}) = 0$.
+
+
+
+
+
 
 		\end{proof}
 		
 		\begin{cor}[Strong Law of Large Numbers]
-		
+Follows directly from BK-theorem.		
 		\end{cor}
 
 %	\section{Measurable Categories}
