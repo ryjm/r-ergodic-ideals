@@ -1,0 +1,39 @@
+% -*- mode: reftex-index-phrases; TeX-master: "measurable_categories_v1.tex" -*-
+%                              Key      Macro Format            Repeat
+%---------------------------------------------------------------------
+>>>INDEX_MACRO_DEFINITION:	i	\index{%s}          	t
+>>>INDEX_MACRO_DEFINITION:	g	\glossary{%s}       	t
+%---------------------------------------------------------------------
+
+
+i	partially ordered set
+i	poset
+i	ordered vector space
+i	homogeneity
+i	lattice
+i	distributive lattice
+i	Riesz space
+i	Riesz subspace
+i	solid subset
+i	ideal
+i	generated
+i	band
+i	principal band
+i	order unit
+i	weak order unit
+i	upward directed
+i	downward directed
+i	upward directed towards f
+i	order continuous
+i	positive
+i	positive cone
+i	Dedekind complete
+i	conditional expectation
+i	positive linear projection
+i	band projection
+i	maximal operator
+i	nth maximal operator
+i	maximal band
+
+	
+
