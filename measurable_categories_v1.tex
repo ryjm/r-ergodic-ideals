@@ -146,53 +146,6 @@
 
 	\textbf{Very rough draft. Please do not distribute.}
 
-	Goal: ergodic averages from the structural viewpoint. 
-
-	Measurable space $(X, \X)$, along with a measurable function $f : X \to X$. Assume that $\N$ is an ideal on $X$,\footnote{\tom{what is an ideal?}} and that the action of $f$ is ergodic with respect to $\N$.\footnote{\tom{what does this mean?}}
-	
-	
-%	$\frac 1 N \sum_{n=1}^N \int_X \f( a^n(x) ) \, \P(\d x)$.
-	
-%	$\frac 1 N \sum_{n=1}^N f(a^n(x))$
-
-	\section{Measure Formulation}
-
-	Let $(X,\X)$ be a measurable space. \tom{Describe measurable subsets as ``events''.}
-	
-	Let $T = \NN$ be the natural numbers, and let $a^t : X \to X$ be a measurable action on the space.\footnote{That is, $a^{t'} \circ a^t = a^{t' + t}$ and $a^{0} = 1_X$, the identity map on $X$.} We define the inverse maps by $a^{-t} : \X \to \X$, noting that they go in the opposite direction. Formally, $a : T \to \End(X)$.
-	
-	
-	
-	Let $\P$ be a stationary, ergodic measure on $X$. As a measure, $\P : \X \to [0,1]$ is a countably additive function.
-	
-	Stationarity means that $a^t_* \P = \P$.\footnote{That is, $\P \circ a^{-t} = \P$.} Ergodic means that
-		$$\mbox{if $\P( A \,\triangle\, a^{-t} A ) = 0$ for all $t \in T$, then $\P(A) = 0$ or $\P(A^c) = 0$.}$$
-
-	\tom{What is a conditional expectation? $\E(f|\C)$ is a function $X \to \R$ which satisfies certain properties.} 
-	
-	
-	
-
-	\tom{Get to Birkhoff-Khinchin ergodic theorem}
-	
-		\begin{thm}[Birkhoff-Khinchin Ergodic Theorem]
-			
-		\end{thm}
-		\begin{proof}
-			
-		\end{proof}
-		
-		\begin{cor}[Strong Law of Large Numbers]
-		
-		\end{cor}
-
-	\section{Ideal Formulation}
-
-	A subset $\N \subseteq \X$ is called an ideal if it is closed under countable unions, and is downward closed. That is, if $\{ N_i \} \subseteq \N$ is a countable set of measurable events, then $\bigcup N_i \in \N$; and if $N \in \N$ and $A \in \X$ with $A \subseteq N$, then $A \in \N$.
-
-	We say that $\N$ is an ergodic ideal with respect to the $T$-action described by $a^t$ if:
-		$$\mbox{if $A \,\triangle\, a^{-t} A \in \N$ for all $t \in T$, then $A \in \N$ or $A^c \in \N$.}$$
-
 \section{Order Formulation}
 \label{sec:order-formulation}
 We would like to construct an analogue of conditional expectation in the context of Riesz spaces. First we list some properties of the usual conditional expectation.
