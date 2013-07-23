@@ -466,6 +466,47 @@ elements which can generate order ideals (bands) equal to the space itself
 \end{defn}
 
 
+\section{The Space of Measurable Functions}
+
+Let $(X, \X)$ be a measurable space and consider the space of real
+valued measurable functions on $X$, $\Meas(X,\R)$. Fixing a measure
+$\P$ on $(X, \X)$ we define the \emph{\index{ideal}ideal} to be the set
+$N_\P = \Set{A \in \X | \P(A) = 0}$. Let $L^0(X,R;\P)$ be the set of
+equivalence classes of measurable functions up to \P-measure 0. 
+
+Define an equivalence relation $f \sim g$ on \Meas(X, \R) if $f(x) =
+g(x)$ except on a set of measure 0 - i.e, $\Set{x \in X : f(x) \neq
+g(x)} \in N_\P$. Then we have $L^0(X,R;\P) = \Meas(X,\R) / \sim$. 
+
+A \emph{preorder} is a relation $\preceq $ that is reflexive and
+transitive. Define a preorder $\preceq $ on the set $\Meas(X,\R)$ such
+that $f \preceq g$ if $f \leq g$ except on a set of measure zero,
+where $\leq $ is the usual pointwise partial ordering. This means that
+$f \preceq g$ when $\set{x \in X | f(x) > g(x)} \in N_\P$. 
+
+In a way analagous to the partially ordered version, define a
+\emph{pre-lattice} to be a preordered set where meets and joins are
+well defined, and a \emph{pre-ordered vector space} in the natural way.
+
+We say that $V$ is a \emph{Preordered Riesz Space} if it is a
+\emph{Preordered Vector Space} with a \emph{pre-lattice} structure. 
+
+\begin{pro}
+\Meas(X,\R) is a preordered Riesz space under the preorder induced by
+$\P$.
+\end{pro}
+
+\begin{pro}
+A preordered Riesz space is a distributive pre-lattice.
+\end{pro}
+
+\begin{pro}
+Define $f \sim g$ if $f \leq g$ and $g \leq f$. Then the quotient
+space of a preordered Riesz space is a Riesz space.
+\end{pro}
+
+\section{Order Conditional Expectation}
+\label{sec:order-cond-expect}
 
 \begin{defn}[Conditional Expectation on Riesz Spaces]\label{def:15}
 
