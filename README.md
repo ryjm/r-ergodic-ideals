@@ -1,0 +1,6 @@
+
+
+Ergodic Ideals
+===============
+
+Research.
