@@ -9,14 +9,17 @@
 \usepackage{amsmath, amssymb}
 \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
 \usepackage{setspace}
-\usepackage{hyperref}
+\usepackage[colorlinks]{hyperref}
+\usepackage{braket}
 \usepackage{enumerate}
 \usepackage{wrapfig}
 \usepackage{graphicx}
+\usepackage{framed}
 \usepackage[all]{xy}
 \usepackage{color}
 \usepackage[usenames,dvipsnames]{xcolor}
 %\usepackage{refcheck}
+\usepackage{dsfont}             % for indicator function \mathds{one}
 
 \onehalfspace
 \setcounter{tocdepth}{2}	% If this equals 1, the table of contents does not include subsections
@@ -24,6 +27,23 @@
 
 %\def\singlespaced{\baselineskip=\normalbaselineskip}
 
+% *** DEFLIST ****
+%
+% Aufruf: \begin{deflist}{Label}
+%         \item[label] TeX
+%         \end{deflist}
+% erzeugt: Liste, bei der das laengste Label die Einrueckungstiefe bestimmt
+%
+%\def\deflabel#1{\bf #1\hfill}
+\def\deflabel#1{#1\hfill}
+\def\deflist#1{
+%    \list{}{\settowidth{\labelwidth}{\bf #1}
+    \list{}{\settowidth{\labelwidth}{#1}
+            \setlength{\leftmargin}{\labelwidth}
+            \addtolength{\leftmargin}{\labelsep}
+            \let\makelabel \deflabel}}
+\let\enddeflist\endlist
+% END DEFLISTf
 
 %%% Sets
 \newcommand{\A}{\mathcal A}
@@ -49,6 +69,7 @@
 \newcommand{\X}{\mathcal X}
 \newcommand{\Z}{\mathbb Z}
 
+\newcommand{\one}{\mathds{1}}      % indicator function
 \renewcommand{\c}{{\operatorname{c}}}
 \newcommand{\e}{\mathrm{e}}				% Euler's constant.
 \renewcommand{\d}{\mathrm{d}}				% Differential operator sans space.
@@ -71,9 +92,9 @@
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{pro}[thm]{Proposition}
 \newtheorem{conj}[thm]{Conjecture}
-\newtheorem{defn}[thm]{Definition}
+\newtheorem{defn}{Definition}
 \newtheorem{ass}[thm]{Assumption}
-\newtheorem{rem}[thm]{Remark}
+\newtheorem{rem}{Remark}
 \newtheorem{exa}[thm]{Example}
 %\theoremstyle{alpha}
 \newtheorem{hyp}{Hypothesis}
@@ -90,7 +111,7 @@
 
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\DynSys}{\catname{DynSys}}
-\newcommand{\Set}{\catname{Set}}
+%\newcommand{\Set}{\catname{Set}}
 \newcommand{\Meas}{\catname{Meas}}
 \newcommand{\Top}{\catname{Top}}
 \newcommand{\LieGrp}{\catname{LieGrp}}
