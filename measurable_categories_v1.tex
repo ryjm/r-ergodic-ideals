@@ -14,7 +14,7 @@
 \usepackage[all]{xy}
 \usepackage{color}
 \usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{refcheck}
+%\usepackage{refcheck}
 
 \onehalfspace
 \setcounter{tocdepth}{2}	% If this equals 1, the table of contents does not include subsections
@@ -192,13 +192,16 @@
 		$$\mbox{if $A \,\triangle\, a^{-t} A \in \N$ for all $t \in T$, then $A \in \N$ or $A^c \in \N$.}$$
 
 \section{Order Formulation}
+\label{sec:order-formulation}
 We would like to construct an analogue of conditional expectation in the context of Riesz spaces. First we list some properties of the usual conditional expectation.
+
 \begin{defn}[Properties of Conditional Expectation]
+\label{def:1}
 Let $\E(f|\C) : X \to R$ be the conditional expectation as defined in the previous section. Define $\bar{1} : X \to R$ to be a function equal to $1$ almost surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the mapping $f \mapsto \E(f|\C)$.
 \begin{deflist}{width-text}
 \item[(I)] $\mathbf{E}$ is linear in $L^1(X,\X,P)$. 
 \item[(II)] $\E(\bar{1}|\C) = \bar{1}$
-\item[(III)] For each $C \in \C$ we have\footnote{This is because $\int\limits_C\E(\one_C \E(f|\C)|\C)dP=\int\limits_C \one_C \E(f|\C)dP=\int\limits_X \E(\one_C f | \C)dP=\int\limits_X \one_C fdP=\int\limits_C fdP$ } $\E(\one_C E(f|\C)|\C) = \E(f|\C)$ (so $\mathbf{E}$ is \emph{idempotent}) 
+\item[(III)] For each $C \in \C$ we have\footnote{This is because $\int\limits_C\E(\one_C \E(f|\C)|\C)dP=\int\limits_C \one_C \E(f|\C)dP=\int\limits_X \E(\one_C f | \C)dP=\int\limits_X \one_C fdP=\int\limits_C fdP$ \label{fn:3}} $\E(\one_C E(f|\C)|\C) = \E(f|\C)$ (so $\mathbf{E}$ is \emph{idempotent}) 
 \item[(IV)] If $f \geq 0$, then $\E(f|\C) \geq 0$
 \item[(V)] $f_n \rightarrow f$ in $L^1(X,\X,P) \implies \E(f_n|\C) \rightarrow \E(f|\C)$ in $L^1(X,\X,P)$
 \end{deflist}
@@ -206,8 +209,7 @@ Let $\E(f|\C) : X \to R$ be the conditional expectation as defined in the previo
 
 With these properties in mind, we now define some order theoretical terms.
 
-	
-\begin{defn}
+\begin{defn}\label{def:2}
 A \emph{partially ordered set}, or \emph{poset}, is a set $X$ equipped with the ordering $\leq$ that satisfies the following properties:
 
 \begin{deflist}{width-text}
@@ -217,7 +219,7 @@ A \emph{partially ordered set}, or \emph{poset}, is a set $X$ equipped with the 
 \end{deflist}
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:3}
 An \emph{ordered vector space} X is a vector space with the following properties:
 
 \begin{deflist}{width-text}
@@ -227,20 +229,20 @@ An \emph{ordered vector space} X is a vector space with the following properties
 \end{deflist}
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:4}
 
-A \emph{lattice} is a poset $X$ where every two element subset has both a supremum and an infimum. For $x, y \in X$ denote $\sup(x,y)$ and $\inf(x,y)$ by $x \vee y$ and $x \wedge y$ respectively. 
+A \emph{lattice} is a poset $X$ where every two element subset has both a supremum and an infimum. For $x, y \in X$ denote $\sup(x,y)$ and $\inf(x,y)$ by $x \join y$ and $x \meet y$ respectively. 
 \end{defn}
 
-\begin{defn}
-For $f \in X$, where X is a lattice, we define $f^+=f \wedge 0$, $f^-=-f \wedge 0$, and $|f| = f \vee -f$
+\begin{defn}\label{def:5}
+For $f \in X$, where X is a lattice, we define $f^+=f \meet 0$, $f^-=-f \meet 0$, and $|f| = f \join -f$
 \end{defn}
 
-\begin{defn}
-A \emph{distributive lattice} is a lattice where $x \wedge (y \vee w) = (x \wedge y) \vee (x \wedge w)$. It can be shown that we can exchange $\wedge$ and $\vee$ as needed.
+\begin{defn}\label{def:6}
+A \emph{distributive lattice} is a lattice where $x \meet (y \join w) = (x \meet y) \join (x \meet w)$. It can be shown that we can exchange $\meet$ and $\join$ as needed.
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:7}
   A \emph{Riesz space} is an ordered vector space that is also a lattice. In particular, this lattice is necessarily a distributive lattice.
 
 $L^1(X,\X,\P)$ is a Riesz space under the pointwise partial order ($f \leq g$ when $f(x) \leq g(x)$).
@@ -248,51 +250,51 @@ $L^1(X,\X,\P)$ is a Riesz space under the pointwise partial order ($f \leq g$ wh
 \end{defn}
 In the following, let $E$ be a Riesz space.
 
-\begin{defn}
-A \emph{Riesz subspace} $S$ of $E$ is a (in the sense of vector spaces) linear subspace of $E$ such that if $f,g \in S$ then $f \vee g$ and $f \wedge g$ are also in $S$.
+\begin{defn}\label{def:8}
+A \emph{Riesz subspace} $S$ of $E$ is a (in the sense of vector spaces) linear subspace of $E$ such that if $f,g \in S$ then $f \join g$ and $f \meet g$ are also in $S$.
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:9}
  A \emph{solid subset} is a set $A \subset E$ such that if $f \in A$ and $|g| \leq |f|$, then $g \in A$.
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:10}
 An \emph{ideal} is a solid linear subspace of $E$. An ideal \emph{generated} by $f\in E$ is the smallest ideal containing $f$, which is the set $I_{f} = \Set{g \in E: |g| \leq |\alpha f|}$, $\alpha \in \R$. 
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:11}
 A \emph{band} is an ideal of $E$ such that every subset of the ideal has its supremum (when it exists in $E$) in the ideal. A band \emph{generated} by $f\in E$ is the smallest band containing $f$ (and thus contains $I_{\alpha}$ as well), and is called a \emph{principal band}. An ideal generated by a non-empty subset $D$ of $E$ is the intersection of all ideals containing $D$ - similarly for a band.
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:12}
 An \emph{order unit} is an element $f \in E$, $f > 0$ such that the ideal generated by $f$ is $E$. Similarly, $f$ is a \emph{weak order unit} if the band generated by $f$ is $E$.
 \end{defn}
 
 
-\begin{defn}
-A set $H$ is called \emph{upward directed} if for any two elements $x,y \in H$ there exists a $z \in H$ such that $z \geq x \vee y$. A set $H$ is called \emph{downward directed} if for any two elements $x,y \in H$ there exists a $z \in H$ such that $z \leq x \wedge y$. A family of elements $f_{\alpha}$, $\alpha \in F$ where $F$ is some non-empty set, is also said to be \emph{upward directed} if for each $a,b \in F$ there exists $c \in F$ such that $f_c \geq f_a \vee f_c$. If $f = \sup({f_\alpha})$ then we say that $f_{\alpha}$ is \emph{upward directed towards f} and we write $f_{\alpha}\uparrow f$. Downward directed is defined similarly. 
+\begin{defn}\label{def:13}
+A set $H$ is called \emph{upward directed} if for any two elements $x,y \in H$ there exists a $z \in H$ such that $z \geq x \join y$. A set $H$ is called \emph{downward directed} if for any two elements $x,y \in H$ there exists a $z \in H$ such that $z \leq x \meet y$. A family of elements $f_{\alpha}$, $\alpha \in F$ where $F$ is some non-empty set, is also said to be \emph{upward directed} if for each $a,b \in F$ there exists $c \in F$ such that $f_c \geq f_a \join f_c$. If $f = \sup({f_\alpha})$ then we say that $f_{\alpha}$ is \emph{upward directed towards f} and we write $f_{\alpha}\uparrow f$. Downward directed is defined similarly. 
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:14}
 A linear operator $T : E \to D$ is said to be \emph{order continuous} if whenever $f_{\alpha} \downarrow 0$ we have $T(f_{\alpha}) \downarrow 0$.
 \end{defn}
-\begin{defn}
+\begin{defn}\label{def:15}
 A linear operator $T : E \to D$ is said to be \emph{positive} if whenever $f \geq 0$ we have $T(f) \geq 0$.
 \end{defn}
 
-\begin{defn}
+\begin{defn}\label{def:16}
 A \emph{positive cone} of $E$ is a subset $E^+ = \Set{f \in E : 0 \leq f}$.
 \end{defn}
 
 
-\begin{defn}[Dedekind complete]
+\begin{defn}[Dedekind complete]\label{def:17}
 A partially ordered set $F$ is said to be \emph{Dedekind complete} if every non-empty subset in $F$ that is bounded above (below) has a supremum (infimum) in $F$. A Riesz space is Dedekind complete when every non-empty upward directed subset of $E^+$ that is bounded above has a supremum.
 \end{defn}
 
 
 Note that since $L^1(X,\X,\P)$ is complete, we must have that for any bounded set in $L^1(X,\X,\P)$ the supremum exists in $L^1(X,\X,\P)$. Thus $L^1(X,\X,\P)$ is a Dedekind complete Riesz space. This suggests that $\mathbf{E}$ should be a mapping on Dedekind complete Riesz spaces. Moreover, by (I), (III), and (IV), this mapping should be a positive linear projection on a Riesz subspace. (II) says that $\mathbf{E}$ should preserve weak order units, since the smallest ideal containing $\bar{1}$ in $L^1(X,\X,\P)$ is the entire space, and this ideal is a band since $L^1$ is Dedekind complete. Finally, (V) says that $\mathbf{E}$ should be order continuous. 
 
-\begin{defn}[Conditional Expectation on Riesz Spaces]
+\begin{defn}[Conditional Expectation on Riesz Spaces]\label{def:18}
 The \emph{conditional expectation} $\mathbf{E}: A \to B$, where $A$ is a Dedekind complete Riesz space with a weak order unit and $B \subset A$ is a Dedekind complete Riesz subspace, satisfies the following properties:
 
 \begin{deflist}{width-text}
@@ -306,22 +308,22 @@ It follows that there exists a weak order unit in $e \in A$ such that $e = Te$ i
 
 In order to formulate the Maximal Ergodic Theorem in terms of Riesz spaces, we need one more definition. 
 
-\begin{defn}[Band Projection]
-The map $J_b(f) = \sup_n (f^+ \wedge nb) - \sup_n(f^- \wedge nb)$ for all $f \in E$ is called the \emph{band projection} onto the band generated by $b$, ie the band $B_b = \Set{f \in E | (|f| \wedge nb) \uparrow |f|}$ generated by $b$ when $b$ is in the positive cone $E^+$. 
+\begin{defn}[Band Projection]\label{def:19}
+The map $J_b(f) = \sup_n (f^+ \meet nb) - \sup_n(f^- \meet nb)$ for all $f \in E$ is called the \emph{band projection} onto the band generated by $b$, ie the band $B_b = \Set{f \in E | (|f| \meet nb) \uparrow |f|}$ generated by $b$ when $b$ is in the positive cone $E^+$. 
 \end{defn}
 
 Restricting $\mathbf{E}$ to a band projection onto the band generated by a \emph{maximal operator} $M$ will give us the Maximal Ergodic Theorem.
 
-
 \begin{thm}[Maximal Ergodic Theorem on Riesz Spaces]
+\label{thr:1}
 Let $E$ be a Riesz space with a weak order unit $e$. Let $\mathbf{E}$ be the conditional expectation operator on E such that $e = \mathbf{E}e$, and define the operator $T : E \to E$ to be positive with $\mathbf{E}|Tf| \leq \mathbf{E}|f|$, $f \in \mathbf{E}$. Define the \emph{nth maximal operator}, for $n \geq 1$
-\begin{equation}
-M_n(f) = \sum\limits_{k=0}^{0} T^kf \vee \sum\limits_{k=0}^{1} T^kf \vee \cdots \vee \sum\limits_{k=0}^{n-1} T^kf
+\begin{equation}\label{eq:2}
+M_n(f) = \sum\limits_{k=0}^{0} T^kf \join \sum\limits_{k=0}^{1} T^kf \join \cdots \join \sum\limits_{k=0}^{n-1} T^kf
 \end{equation}
 
 Now define the \emph{maximal band} $M(f)$ to be the band generated by $\Set{M_n(f)^+ | n \in \NN}$, and $J_{M(f)}$ to be the band projection onto the maximal band. Then we have
 
-\begin{equation}
+\begin{equation}\label{eq:3}
 \mathbf{E}(J_{M(f)}f) \geq 0
 \end{equation}
 \end{thm}
