@@ -144,158 +144,468 @@
 
 \maketitle
 
-	\textbf{Very rough draft. Please do not distribute.}
-
-\section{Order Formulation}
-\label{sec:order-formulation}
-We would like to construct an analogue of conditional expectation in the context of Riesz spaces. First we list some properties of the usual conditional expectation.
-
+\textbf{Very rough draft. Please do not distribute.}
 \begin{defn}[Properties of Conditional Expectation]
-\label{def:1}
-Let $\E(f|\C) : X \to R$ be the conditional expectation as defined in the previous section. Define $\bar{1} : X \to R$ to be a function equal to $1$ almost surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the mapping $f \mapsto \E(f|\C)$.
-\begin{deflist}{width-text}
-\item[(I)] $\mathbf{E}$ is linear in $L^1(X,\X,P)$. 
-\item[(II)] $\E(\bar{1}|\C) = \bar{1}$
-\item[(III)] For each $C \in \C$ we have\footnote{This is because $\int\limits_C\E(\one_C \E(f|\C)|\C)dP=\int\limits_C \one_C \E(f|\C)dP=\int\limits_X \E(\one_C f | \C)dP=\int\limits_X \one_C fdP=\int\limits_C fdP$ \label{fn:3}} $\E(\one_C E(f|\C)|\C) = \E(f|\C)$ (so $\mathbf{E}$ is \emph{idempotent}) 
-\item[(IV)] If $f \geq 0$, then $\E(f|\C) \geq 0$
-\item[(V)] $f_n \rightarrow f$ in $L^1(X,\X,P) \implies \E(f_n|\C) \rightarrow \E(f|\C)$ in $L^1(X,\X,P)$
-\end{deflist}
+  \label{def:1}
+  Let $\E(f|\C) : X \to R$ be the conditional expectation as defined
+  in the previous section. Define $1 : X \to R$ to be a function
+  equal to $1$ almost surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the
+  mapping $f \mapsto \E(f|\C)$.
+  \begin{deflist}{width-text}
+  \item[(I)] $\mathbf{E}$ is linear in $L^1(X,\X,P)$.
+  \item[(II)] $\E(1|\C) = 1$
+  \item[(III)] For each $C \in \C$ we have\footnote{This is because
+      $\int\limits_C\E(\one_C \E(f|\C)|\C)dP=\int\limits_C \one_C
+      \E(f|\C)dP=\int\limits_X \E(\one_C f | \C)dP=\int\limits_X
+      \one_C fdP=\int\limits_C fdP$ \label{fn:1}} $\E(\one_C
+    E(f|\C)|\C) = \E(f|\C)$ (so $\mathbf{E}$ is \emph{idempotent})
+  \item[(IV)] If $f \geq 0$, then $\E(f|\C) \geq 0$
+  \item[(V)] $f_n \rightarrow f$ in $L^1(X,\X,P) \implies \E(f_n|\C)
+    \rightarrow \E(f|\C)$ in $L^1(X,\X,P)$
+  \end{deflist}
 \end{defn}
 
-With these properties in mind, we now define some order theoretical terms.
+Our primary goal is to define conditional expectation in an order
+theoretical context.
 
-\begin{defn}\label{def:2}
-A \emph{\index{partially ordered set}partially ordered set}, or \emph{\index{poset}poset}, is a set $X$ equipped with the ordering $\leq$ that satisfies the following properties:
+\begin{framed}
+  Since $L^1(V,\X,\P)$ is complete, we must have that for any bounded
+  set in $L^1(V,\X,\P)$ the supremum exists in $L^1(V,\X,\P)$. Thus
+  $L^1(V,\X,\P)$ is a Dedekind complete (\textbf{Def:\ref{def:13}})
+  Riesz space (\textbf{Def:\ref{def:6}}). This suggests that
+  $\mathbf{E}$ should be a mapping on Dedekind complete Riesz
+  spaces. Moreover, by (I), (III), and (IV), this mapping should be a
+  \index{positive linear projection}positive linear projection on a
+  Riesz subspace (\textbf{Def:\ref{def:9}}). (II) says that
+  $\mathbf{E}$ should preserve weak order units
+  (\textbf{Def:\ref{def:11}}), since the smallest ideal
+  (\textbf{Def:\ref{def:10}}) containing $1$ in $L^1(V,\X,\P)$ is the
+  entire space, and this ideal is a band (\textbf{Def:\ref{def:10}})
+  since $L^1$ is Dedekind complete. Finally, (V) says that
+  $\mathbf{E}$ should be order continuous (\textbf{Def:\ref{def:14}}).
+\end{framed}
 
-\begin{deflist}{width-text}
-\item $x \in X \implies x \leq x$ (\emph{reflexivity})
-\item If $x \leq y$ and $y \leq z$ then $x \leq z$, $x,y,z \in X$ (\emph{transitivity})
-\item If $x \leq y$ and $y \leq x$ then $x = y$, $x,y \in X$ (\emph{anti-symmetry})
-\end{deflist}
-\end{defn}
+\section{Preliminaries}
 
-\begin{defn}\label{def:3}
-An \emph{\index{ordered vector space}ordered vector space} X is a vector space with the following properties:
+Order theory equips a set $V$ with a structure which defines an
+\emph{ordering} of elements in the set using a \emph{relation} $\leq$,
+and we write for $a \leq b$ to mean $a$ is \emph{below} $b$ and $a
+\geq b$ to mean $a$ is \emph{above} $b$, for $a,b \in V$ (the terms
+\emph{above} and \emph{below} are informal and depend on the order
+structure).
 
-\begin{deflist}{width-text}
-\item X is partially ordered.
-\item Vector space addition preserves order.
-\item If $x \leq y$ then $\alpha x \leq \alpha y$. (\emph{\index{homogeneity}homogeneity})
-\end{deflist}
-\end{defn}
+A particular structure of this kind is called a \emph{partial order},
+which as implied by the name does not restrict elements from being
+neither above nor below each other - in this structure, it is
+\emph{not} the case that either $a \leq b$ or $b \geq a$, $a,b \in
+V$. We will not concern ourselves with other orderings for now.
 
-\begin{defn}\label{def:4}
+\begin{framed}
+  \begin{defn}[partially ordered set]\label{def:2}
+    A \emph{\index{partially ordered set}partially ordered set}, or
+    \emph{\index{poset}poset}, is a set $V$ equipped with the ordering
+    $\leq$, called \emph{partial order}, that satisfies the following
+    properties:
 
-A \emph{\index{lattice}lattice} is a poset $X$ where every two element subset has both a supremum and an infimum. For $x, y \in X$ denote $\sup(x,y)$ and $\inf(x,y)$ by $x \join y$ and $x \meet y$ respectively. 
-\end{defn}
+    \begin{deflist}{width-text}
+    \item $v \in V \implies v \leq v$ (\emph{reflexivity})
+    \item If $v \leq w$ and $w \leq u$ then $v \leq u$ where $v,w,u \in V$
+      (\emph{transitivity})
+    \item If $v \leq w$ and $w \leq v$ then $v = w$ where $v,w \in V$
+      (\emph{anti-symmetry})
+    \end{deflist}
+  \end{defn}
+\end{framed}
 
-\begin{defn}\label{def:5}
-For $f \in X$, where X is a lattice, we define $f^+=f \meet 0$, $f^-=-f \meet 0$, and $|f| = f \join -f$
-\end{defn}
+Naturally, an ordering gives rise to the idea of \emph{upper} and
+\emph{lower} bounds for subsets of an ordered set, which are elements
+(not necessarily contained in the set itself) that are above (below)
+every element in a particular subset. A subset may also have a
+particular type of upper bound called a \emph{supremum}, or a
+particular type of lower bound called the \emph{infimum} - these are
+the least upper bounds and the greatest lower bounds respectively. The
+anti-symmetry property in a partially ordered set implies the
+uniqueness of the supremum and the infimum for each subset
+\emph{provided that they exist}. This is because any least upper bound
+is necessarily below (w.r.t the order) any other upper bound, implying
+that any two non-unique suprema must be above and below each other
+(since even though they are \emph{least} upper bounds, they are still
+upper bounds) - the anti-symmetry property of partial orderings
+requires that in this case, both elements are equal. A similar
+argument holds for greatest lower bounds.
 
-\begin{defn}\label{def:6}
-A \emph{\index{distributive lattice}distributive lattice} is a lattice where $x \meet (y \join w) = (x \meet y) \join (x \meet w)$. It can be shown that we can exchange $\meet$ and $\join$ as needed.
-\end{defn}
-
-\begin{defn}\label{def:7}
-  A \emph{\index{Riesz space}Riesz space} is an ordered vector space that is also a lattice. In particular, this lattice is necessarily a distributive lattice.
-
-$L^1(X,\X,\P)$ is a Riesz space under the pointwise partial order ($f \leq g$ when $f(x) \leq g(x)$).
-
-\end{defn}
-In the following, let $E$ be a Riesz space.
-
-\begin{defn}\label{def:8}
-A \emph{\index{Riesz subspace}Riesz subspace} $S$ of $E$ is a (in the sense of vector spaces) linear subspace of $E$ such that if $f,g \in S$ then $f \join g$ and $f \meet g$ are also in $S$.
-\end{defn}
-
-\begin{defn}\label{def:9}
- A \emph{\index{solid subset}solid subset} is a set $A \subset E$ such that if $f \in A$ and $|g| \leq |f|$, then $g \in A$.
-\end{defn}
-
-\begin{defn}\label{def:10}
-An \emph{\index{ideal}ideal} is a solid linear subspace of $E$. An ideal \emph{generated} by $f\in E$ is the smallest ideal containing $f$, which is the set $I_{f} = \Set{g \in E: |g| \leq |\alpha f|}$, $\alpha \in \R$. 
-\end{defn}
-
-\begin{defn}\label{def:11}
-A \emph{\index{band}band} is an ideal of $E$ such that every subset of the ideal has its supremum (when it exists in $E$) in the ideal. A band \emph{generated} by $f\in E$ is the smallest band containing $f$ (and thus contains $I_{\alpha}$ as well), and is called a \emph{\index{principal band}principal band}. An ideal generated by a non-empty subset $D$ of $E$ is the intersection of all ideals containing $D$ - similarly for a band.
-\end{defn}
-
-\begin{defn}\label{def:12}
-An \emph{\index{order unit}order unit} is an element $f \in E$, $f > 0$ such that the ideal generated by $f$ is $E$. Similarly, $f$ is a \emph{\index{weak order unit}weak order unit} if the band generated by $f$ is $E$.
-\end{defn}
-
-
-\begin{defn}\label{def:13}
-A set $H$ is called \emph{\index{upward directed}upward directed} if for any two elements $x,y \in H$ there exists a $z \in H$ such that $z \geq x \join y$. A set $H$ is called \emph{\index{downward directed}downward directed} if for any two elements $x,y \in H$ there exists a $z \in H$ such that $z \leq x \meet y$. A family of elements $f_{\alpha}$, $\alpha \in F$ where $F$ is some non-empty set, is also said to be \emph{upward directed} if for each $a,b \in F$ there exists $c \in F$ such that $f_c \geq f_a \join f_c$. If $f = \sup({f_\alpha})$ then we say that $f_{\alpha}$ is \emph{upward directed towards f} and we write $f_{\alpha}\uparrow f$. Downward directed is defined similarly. 
-\end{defn}
-
-\begin{defn}\label{def:14}
-A linear operator $T : E \to D$ is said to be \emph{\index{order continuous}order continuous} if whenever $f_{\alpha} \downarrow 0$ we have $T(f_{\alpha}) \downarrow 0$.
-\end{defn}
-\begin{defn}\label{def:15}
-A linear operator $T : E \to D$ is said to be \emph{\index{positive}positive} if whenever $f \geq 0$ we have $T(f) \geq 0$.
-\end{defn}
-
-\begin{defn}\label{def:16}
-A \emph{\index{positive cone}positive cone} of $E$ is a subset $E^+ = \Set{f \in E : 0 \leq f}$.
-\end{defn}
+A useful situation to highlight is when we want to know the supremum
+and infimum of only two elements - define the notation $a \join b$ for
+their supremum $\sup(\Set{x,y})$, or \emph{join}, of $a,b \in V$, and
+$a \meet b$ for their infimum $\sup(\Set{x,y})$, or \emph{meet}. This
+leads to a particular type of poset called a \emph{lattice}.
 
 
-\begin{defn}[\index{Dedekind complete}Dedekind complete]\label{def:17}
-A partially ordered set $F$ is said to be \emph{Dedekind complete} if every non-empty subset in $F$ that is bounded above (below) has a supremum (infimum) in $F$. A Riesz space is Dedekind complete when every non-empty upward directed subset of $E^+$ that is bounded above has a supremum.
-\end{defn}
+\begin{framed}
+  \begin{defn}[lattice]\label{def:3}
 
+    A \emph{\index{lattice}lattice} is a poset $V$ where for any $v,w
+    \in V$ we have $v \join w \in V$ and $v \meet w \in V$.
 
-Note that since $L^1(X,\X,\P)$ is complete, we must have that for any bounded set in $L^1(X,\X,\P)$ the supremum exists in $L^1(X,\X,\P)$. Thus $L^1(X,\X,\P)$ is a Dedekind complete Riesz space. This suggests that $\mathbf{E}$ should be a mapping on Dedekind complete Riesz spaces. Moreover, by (I), (III), and (IV), this mapping should be a \index{positive linear projection}positive linear projection on a Riesz subspace. (II) says that $\mathbf{E}$ should preserve weak order units, since the smallest ideal containing $\bar{1}$ in $L^1(X,\X,\P)$ is the entire space, and this ideal is a band since $L^1$ is Dedekind complete. Finally, (V) says that $\mathbf{E}$ should be order continuous. 
+  \end{defn}
+\end{framed}
 
-\begin{defn}[Conditional Expectation on Riesz Spaces]\label{def:18}
-The \emph{\index{order conditional expectation}order conditional expectation} $\mathbf{E}: A \to B$, where $A$ is a Dedekind complete Riesz space with a weak order unit and $B \subset A$ is a Dedekind complete Riesz subspace, satisfies the following properties:
-
-\begin{deflist}{width-text}
-\item[(I)] $\mathbf{E}$ is a \emph{positive linear projection}.
-\item[(II)] $\mathbf{E}$ is \emph{order continuous}.
-\item[(III)] $\mathbf{E}$ preserves \emph{weak order units}.
-\end{deflist}
-
-It follows that there exists a weak order unit in $e \in A$ such that $e = Te$ if and only if $Td$ is a weak order unit for every weak order unit $d \in A$. So a positive, order continuous, linear projection from a Dedekind complete Riesz space to a subspace of a Dedekind complete Riesz space is a conditional expectation if it preserves weak order units.
-\end{defn}
-
-In order to formulate the Maximal Ergodic Theorem in terms of Riesz spaces, we need one more definition. 
-
-\begin{defn}[\index{band projection}Band Projection]\label{def:19}
-The map $J_b(f) = \sup_n (f^+ \meet nb) - \sup_n(f^- \meet nb)$ for all $f \in E$ is called the \emph{band projection} onto the band generated by $b$, ie the band $B_b = \Set{f \in E | (|f| \meet nb) \uparrow |f|}$ generated by $b$ when $b$ is in the positive cone $E^+$. 
-\end{defn}
-
-Restricting $\mathbf{E}$ to a band projection onto the band generated by a \emph{\index{maximal operator}maximal operator} $M$ will give us the Maximal Ergodic Theorem.
-
-\begin{thm}[Maximal Ergodic Theorem on Riesz Spaces]
-\label{thr:1}
-Let $E$ be a Riesz space with a weak order unit $e$. Let $\mathbf{E}$ be the conditional expectation operator on E such that $e = \mathbf{E}e$, and define the operator $T : E \to E$ to be positive with $\mathbf{E}|Tf| \leq \mathbf{E}|f|$, $f \in \mathbf{E}$. Define the \emph{\index{nth maximal operator}nth maximal operator}, for $n \geq 1$
-\begin{equation}\label{eq:2}
-M_n(f) = \sum\limits_{k=0}^{0} T^kf \join \sum\limits_{k=0}^{1} T^kf \join \cdots \join \sum\limits_{k=0}^{n-1} T^kf
+For $V$ a lattice and $a,b,c \in V$, if $a \leq c $ and $b \leq c $,
+we have that $a \join b \leq c $. Thus
+\begin{equation}
+  \label{eq:1}
+  (u \meet w) \join (v \meet w) \leq w \join (u \meet v)
 \end{equation}
+since for any $u,v,w \in V$ we have that $u \meet w \leq w \join (u
+\meet v)$ and $v \meet w \leq w \join (u \meet v)$. If we have
+equality in (\ref{eq:1}), we get a \emph{distributive lattice}.
 
-Now define the \emph{\index{maximal band}maximal band} $M(f)$ to be the band generated by $\Set{M_n(f)^+ | n \in \NN}$, and $J_{M(f)}$ to be the band projection onto the maximal band. Then we have
+
+\begin{framed}
+  \begin{defn}[distributive lattice]\label{def:4} %
+    A \emph{\index{distributive lattice}distributive lattice} is a
+    lattice where $w \join (u \meet v) = (w \meet u) \join (w \meet
+    v)$.
+  \end{defn}
+\end{framed}
+
+These tools can be used to equip vector spaces with an additional
+structure. In particular, requiring that this enhanced vector space be
+a lattice provides us with a \emph{Riesz space}, giving the
+foundation on which we can construct a conditional expectation
+operator.
+
+\begin{framed}
+  \begin{defn}[ordered vector space]\label{def:5}
+    An \emph{\index{ordered vector space}ordered vector space} V is a
+    vector space over $\R$ with the following properties.
+
+    Let $u,v,w \in V$:
+    \begin{deflist}{width-text}
+    \item V is partially ordered.
+    \item $v \leq w \implies v + u \leq w + u$.
+    \item If $v \leq w$ then $\alpha v \leq \alpha w$, $\alpha \geq
+      0$, $\alpha \in \R$. (\emph{\index{homogeneity}homogeneity})
+    \end{deflist}
+  \end{defn}
+
+\begin{defn}[Riesz space]\label{def:6}
+  A \emph{\index{Riesz space}Riesz space} is an ordered vector space
+  that is also a distributive lattice.
+\end{defn}
+\end{framed}
+
+Subsets of Riesz spaces that arise from the lattice structure must be
+described as well. Since Riesz spaces inherit the vector space
+structure as well, we can talk about \emph{Riesz subspaces} - these
+are just ordinary subspaces with the additional property of being
+closed under meets and joins. We can further classify these subspaces
+into \emph{ideals} and \emph{bands}.
+
+From now on, we will assume that $V$ is a Riesz space. First, we must
+describe a way of decomposing $v \in V$ into two different parts,
+which will give us the concept of \emph{absolute value}.
+
+\begin{framed}
+  \begin{defn}[Absolute value]\label{def:7}
+    For $v \in V$ we define $v^+=v \join 0$, $v^-=-v \join 0$, and
+    $|v| = v \join -v$.
+  \end{defn}
+
+\begin{defn}[positive cone]\label{def:8}
+  The \emph{\index{positive cone}positive cone} of $V$ is the subset $V^+
+  = \Set{v \in V : 0 \leq v}$.
+\end{defn}
+
+The following two theorems can be easily verified:
+
+\begin{thm}[Properties of Decomposition]
+  \label{thr:1}
+  For $v,w \in V$, we have
+  \begin{deflist}{width-text}
+  \item
+  \item[(i)] $v^+$ and $v^-$ are members of $V^+$, $(-v)^+=v^-$,
+    $(-v)^-=v^+$, and $|-v|=|v|$.
+  \item[(ii)] $v = v^+ - v^-$, $v^+ \meet v^-=0$, and $|v| = v^++v^-$
+    (so $|v| \in V^+$).
+  \item[(iii)] $0 \leq v^+ \leq |v|$ and $0 \leq v^- \leq
+    |v|}$. Furthermore, $-v^- \leq v \leq v^+$ and $|v|=0$ if and only
+  if $v=0$.
+\item[(iv)] $v \leq w$ if and only if $v^+ \leq w^+$ and $v^- \geq
+  w^-$.
+\end{deflist}
+\end{thm}
+Since $v \join w + u = (v + u) \join (w + u)$, the following theorem
+follows from
+\begin{align*}
+  v \join w &= (v-w) \join 0 + w \\
+  &= (v-w)^+ + w
+\end{align*}
+
+Similarly for $v \meet w = -(v-w)^+ v$.
+
+\begin{thm}[Equalities]
+  \label{thr:2}
+  For $v,w \in V$, we have
+  \begin{enumerate}
+  \item\label{item:1} $v \join w + w \meet v = v + w$
+  \item\label{item:2} $v \join w - w \meet v = |v - w|$
+  \end{enumerate}
+\end{thm}
+
+\end{framed}
+
+The following definitions are probably the most important tools used
+in examining Riesz spaces.
+\begin{framed}
+  \begin{defn}[Riesz subspace]\label{def:9}
+    A \emph{\index{Riesz subspace}Riesz subspace} $W$ of $V$ is a
+    linear subspace of $V$ such that if $u,v \in W$ then $u \join v$
+    and $u \meet v$ are also in $W$. (we can require only that $u
+    \join v \in W$, since this implies that $u \meet v \in W$).
+  \end{defn}
+  We call a set $W \subset V$ \emph{solid} if $w \in W$, $v \in V$ and
+  $|v| \leq |w|$, then $v \in W$. The absolute value allows us to talk
+  about solid linear subspaces, since otherwise any solid linear
+  subspace would expand into the entire space.
+
+  \begin{defn}[ideals and bands]\label{def:10}
+    An \emph{\index{ideal}ideal} $I$ is a solid linear subspace of
+    $V$. If every subset of this ideal has its supremum (when it
+    exists) in the ideal itself, we call it a
+    \emph{\index{band}band}. An ideal generated by a non-empty subset
+    $U$ of $V$ is the intersection of all ideals containing $U$ -
+    similarly for a band. An ideal \emph{generated} by $v \in V$ is
+    the smallest ideal containing $v$, which is the set $I_{v} =
+    \Set{w \in V: |w| \leq |\alpha v|}$, $\alpha \in \R$.
+  \end{defn}
+
+  \begin{rem}\label{rem:1}
+    It turns out that an ideal is also a Riesz subspace. From
+    \textbf{Def:\ref{def:9}} it suffices to show that $v \join w \in
+    I$ for any $v,w \in V$. This follows immediately from
+    \textbf{Thm:\ref{thr:2}} , which gives $v \join w =
+    \frac{1}{2}(v+w+|v-w|) \leq |v| + |w| + |v - w|$.
+  \end{rem}
+
+\end{framed}
+So every band is an ideal, but not every ideal is a band. We can also
+distinguish between ideals (bands) generated by single elements, or
+\emph{principal ideals (bands)}. Furthermore, we can examine those
+elements which can generate ideals (bands) equal to the space itself
+(note that the entire space is necessarily a band).
+
+\begin{framed}
+  \begin{defn}[order unit]\label{def:11}
+    An \emph{\index{order unit}order unit} is an element $e \in V$, $f
+    > 0$ such that the ideal generated by $e$ is $V$. Similarly, $e$
+    is a \emph{\index{weak order unit}weak order unit} if the band
+    generated by $e$ is $V$.
+  \end{defn}
+  \begin{defn}[directed sets]\label{def:12}
+    A non-empty subset $W$ of $V$ is called \emph{\index{upward
+        directed}upward directed} if for any two elements $v,u \in W$
+    there exists a $w \in W$ such that $w \geq v \join u$.A family of
+    elements $v_{\alpha}$, $\alpha \in F$ where $F$ is some non-empty
+    indexing set, is also said to be \emph{upward directed} if for
+    each $a,b \in F$ there exists $c \in F$ such that $v_c \geq v_a
+    \join v_c$. If $v = \sup({v_\alpha})$ then we say that
+    $v_{\alpha}$ is \emph{upward directed towards v} and we write
+    $v_{\alpha}\uparrow_{\alpha} v$. Downward directed is defined
+    similarly.
+    \begin{rem}\label{rem:2}
+      Since the band generated by a weak order unit $e \in V$ is
+      $I_{e} = \Set{w \in V: |w| \leq |\alpha e|}$, $\alpha \in \R$,
+      it follows that $e$ is a weak order unit if and only if $V =
+      \Set{w \in V : (|w| \meet |\alpha e|) \uparrow_{\alpha}
+        |w|}$. This will be useful when we define band projections
+      (\textbf{Def:\ref{def:16}}).
+    \end{rem}
+  \end{defn}
+\end{framed}
+
+\begin{defn}[Dedekind complete]\label{def:13}
+  A partially ordered set $U$ is said to be \emph{\index{Dedekind
+      complete}Dedekind complete} if every non-empty subset in $U$
+  that is bounded above (below) has a supremum (infimum) in $U$. A
+  Riesz space is Dedekind complete when every non-empty upward
+  directed subset of $V^+$ that is bounded above has a supremum.
+\end{defn}
+
+\begin{defn}[order continuous]\label{def:14}
+  A linear operator $T : V \to W$ is said to be \emph{\index{order
+      continuous}order continuous} if whenever $v_{\alpha} \downarrow
+  0$ we have $T(v_{\alpha}) \downarrow 0$. This is equivalent to
+  $v_{\alpha} \uparrow u$ implies $T(v_{\alpha}) \uparrow Tu$.
+\end{defn}
+
+
+
+\begin{defn}[Conditional Expectation on Riesz Spaces]\label{def:15}
+
+  The \emph{\index{order conditional expectation}order conditional
+    expectation} $\E_W: V \to W$, where $V$ is a Dedekind
+  complete Riesz space with a weak order unit and $W \subset V$ is a
+  Dedekind complete Riesz subspace, satisfies the following
+  properties:
+
+  \begin{deflist}{width-text}
+  \item[(I)] $\E_W$ is a \emph{positive linear projection}.
+  \item[(II)] $\E_W$ is \emph{order continuous}.
+  \item[(III)] $\E_W$ preserves \emph{weak order units}.
+  \end{deflist}
+\end{defn}
+
+\begin{framed}
+  It follows that there exists a weak order unit in $e \in V$ such
+  that $e = Te$ if and only if $Td$ is a weak order unit for every
+  weak order unit $d \in V$. So a positive, order continuous, linear
+  projection from a Dedekind complete Riesz space to a subspace of a
+  Dedekind complete Riesz space is a conditional expectation if it
+  preserves weak order units.
+\end{framed}
+
+In order to formulate the Maximal Ergodic Theorem in terms of Riesz
+spaces, we need one more definition.
+
+\begin{defn}[Band Projection]\label{def:16}
+  The map $J_w(u) = \sup_n (u^+ \meet nw) - \sup_n(u^- \meet nw)$ for
+  all $w \in V$ is called the \emph{\index{band projection}band
+    projection} onto the band generated by $w$, ie the band $B_w =
+  \Set{v \in V | (|v| \meet nw) \uparrow_n |v|}$ (see
+  \textbf{Rem:\autoref{rem:2}}) generated by $w$ when $w$ is in the
+  positive cone $V^+$.
+\end{defn}
+
+Restricting $\E_W$ to a band projection onto the band generated
+by a \emph{\index{maximal operator}maximal operator} $M$ will give us
+the Maximal Ergodic Theorem.
+
+\begin{thm}[Maximal Ergodic Theorem on Riesz Spaces]\label{thr:3}
+
+  Let $V$ be a Riesz space with a weak order unit $e$. Let
+  $\E_W$ be the conditional expectation operator on V such that
+  $e = \E_We$, and define the operator $T : V \to V$ to be
+  positive with $\E_W|Tf| \leq \E_W|f|$, $f \in
+  \E_W$. Define the \emph{\index{nth maximal operator}nth
+    maximal operator}, for $n \geq 1$
+  \begin{equation}\label{eq:2}
+    M_n(f) = \sum\limits_{k=0}^{0} T^kf \join \sum\limits_{k=0}^{1} T^kf \join \cdots \join \sum\limits_{k=0}^{n-1} T^kf = \bigvee_{i=0}^n \sum\limits_{k=0}^{i-1} T^kf
+  \end{equation}
+
+  Now define the \emph{\index{maximal band}maximal band} $M(f)$ to be
+  the band generated by $\Set{M_n(f)^+ | n \in \NN}$, and $J_{M(f)}$
+  to be the band projection onto the maximal band. Then we have
 
 \begin{equation}\label{eq:3}
-\mathbf{E}(J_{M(f)}f) \geq 0
+  \E_W(J_{M(f)}f) \geq 0
 \end{equation}
 \end{thm}
 
-\begin{proof}
-\label{prf:max-erg}
-First we prove that that for each nth maximal operator we have something similar to \eqref{eq:3}. Each nth maximal operator~\eqref{eq:2} is positive and thus we can write it in terms of a band projection $J_{M_n(f)^+}$ on the band generated by the nth maximal operator itself. 
+\begin{framed}
+  First we prove that that for each nth maximal operator we have
+  something similar to \eqref{eq:3}. Each nth maximal operator is
+  positive and thus we can write it in terms of a band projection
+  $J_{M_n(f)^+}$ on the band generated by the nth maximal operator
+  itself. We then note that the sequence of band projections
+  associated with each maximal operator is upward directed to the band
+  projection onto the maximal band. Once we have that
+  $\E_W(J_{M_n(f)^+}f) \geq 0$, we can then use the order
+  continuity of $\E_W$ to complete the proof.
+\end{framed}
 
-We note that the sequence of band projections associated with each maximal operator is upward directed to the band projection onto the maximal band. Once we have that $\mathbf{E}(J_{M_n(f)^+}f) \geq 0$, we can then use the order continuity of $\mathbf{E}$ to complete the proof. 
+\begin{proof}
+  \label{prf:max-erg}
+
+  Since $T$ is positive and
+  \begin{equation}
+    \label{eq:4}
+    M_n(f) \geq \sum\limits_{k=0}^{j-1} T^kf
+  \end{equation}
+
+  for $j = 0,\dots,n$, we must have that for the same $j$ values,
+
+  \begin{equation}
+    \label{eq:5}
+    TM_n(f) \geq T\sum\limits_{k=0}^{j-1} T^kf = \sum\limits_{k=0}^{j-1} T^{k+1}f
+  \end{equation}
+
+  Since $TM_n(f) = T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^kf$ we
+  have that
+
+  \begin{equation}
+    \label{eq:6}
+    f + TM_n(f) = f + T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^kf 
+  \end{equation}
+
+  and then \eqref{eq:5} implies that
+
+  \begin{align}
+    \label{eq:7}
+    f + TM_n(f) &\geq f + \bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^{k+1}f  \\
+    \label{eq:8}
+    &= \bigvee_{i=0}^n( f + \sum\limits_{k=0}^{i-1} T^{k+1}f)  \\
+    \label{eq:9}
+    &= \bigvee_{i=1}^{n+1}( \sum\limits_{k=0}^{i-1} T^{k}f)
+  \end{align}
+
+  By \eqref{eq:4} we know that \eqref{eq:9} must be larger than
+  $\sum\limits_{k=0}^{j-1} T^{k}f$ for $j = 1,\dots,n+1$. This means
+  we can write
+
+  \begin{align}
+    \label{eq:10}
+    f + TM_n(f) &\geq \bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f  \\
+    \label{eq:11}
+    f &\geq \bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f - TM_n(f)
+  \end{align}
+
+
+  Also, we have that the nth maximal operator is always positive,
+  since the case of $n=0$ forces $0$ to be the smallest possible upper
+  bound. This means that we can express $M_n(f)$ as a band projection
+  in two different form, the trivial one
+
+  \begin{equation}
+    \label{eq:12}
+    M_n(f)  &= J_{M_n(f)^+}M_n(f) 
+  \end{equation}
+
+  and another
+
+  \begin{align}
+    \label{eq:13}
+    M_n(f) &= 0 \join \bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f \\
+    \label{eq:14}
+    &= J_{M_n(f)^+}\bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f
+  \end{align}
+
+  Thus we can apply $J_{M_n(f)^+}$ to \eqref{eq:11} and substitute,
+  yielding
+
+  \begin{align}
+    \label{eq:15}
+    J_{M_n(f)^+}(f) &\geq J_{M_n(f)^+}(\bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f - TM_n(f)) \\
+    \label{eq:16}
+    &= M_n(f)-(J_{M_n(f)^+}TM_n(f))
+  \end{align}
+
+  Finally, applying $\E_W$, using that $\E_WJ=J\E_W$
+  and $\E_WT(f) \leq \E_W(f) $ (recall that $T$ is a
+  positive operator) gives
+  \begin{align*}
+    \label{eq:17}
+    \E_WJ_{M_n(f)^+}(f)&\geq \E_WM_n(f)-\E_W(J_{M_n(f)^+}TM_n(f)) \\
+    &\geq \E_WM_n(f)-\E_W(J_{M_n(f)^+}M_n(f)) \\
+    &= \E_W(M_n(f)-(J_{M_n(f)^+}M_n(f))) \\
+    &= \E_W(0) \\
+    &= 0
+  \end{align*}
+
 \end{proof}
 
 \printindex
-\end{document}		
-		
-		
-		
-		
+\end{document}
 		
 		
 		
