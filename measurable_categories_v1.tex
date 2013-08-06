@@ -166,8 +166,7 @@
 \maketitle
 
 \textbf{Very rough draft. Please do not distribute.}
-\begin{defn}[Properties of Conditional Expectation]
-  \label{def:1}
+\begin{defn}[Properties of Conditional Expectation]\label{def:1}
   Let $\E(f|\C) : X \to R$ be the conditional expectation as defined
   in the previous section. Define $1 : X \to R$ to be a function
   equal to $1$ almost surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the
@@ -206,7 +205,7 @@ theoretical context.
   $\mathbf{E}$ should be order continuous (\textbf{Def:\ref{def:14}}).
 \end{framed}
 
-\section{Order Theory}
+\part{Order Theory}
 
 Order theory equips a set $V$ with a structure which defines an
 \emph{ordering} of elements in the set using a \emph{relation} $\leq$,
@@ -217,10 +216,10 @@ structure).
 
 A particular structure of this kind is called a \emph{partial order},
 which as implied by the name does not restrict elements from being
-neither above nor below each other - in this structure, it is
+neither above nor below each other --- in this structure, it is
 \emph{not} required that either $a \leq b$ or $b \geq a$, $a,b \in
 V$. Note that an order in which the above holds can still be a partial
- order. 
+order.
 
 \begin{framed}
   \begin{defn}[partially ordered set]\label{def:2}
@@ -231,8 +230,8 @@ V$. Note that an order in which the above holds can still be a partial
 
     \begin{deflist}{width-text}
     \item $v \in V \implies v \leq v$ (\emph{reflexivity})
-    \item If $v \leq w$ and $w \leq u$ then $v \leq u$ where $v,w,u \in V$
-      (\emph{transitivity})
+    \item If $v \leq w$ and $w \leq u$ then $v \leq u$ where $v,w,u
+      \in V$ (\emph{transitivity})
     \item If $v \leq w$ and $w \leq v$ then $v = w$ where $v,w \in V$
       (\emph{anti-symmetry})
     \end{deflist}
@@ -244,7 +243,7 @@ Naturally, an ordering gives rise to the idea of \emph{upper} and
 (not necessarily contained in the set itself) that are above (below)
 every element in a particular subset. A subset may also have a
 particular type of upper bound called a \emph{supremum}, or a
-particular type of lower bound called the \emph{infimum} - these are
+particular type of lower bound called the \emph{infimum} --- these are
 the least upper bounds and the greatest lower bounds respectively. The
 anti-symmetry property in a partially ordered set implies the
 uniqueness of the supremum and the infimum for each subset
@@ -252,15 +251,16 @@ uniqueness of the supremum and the infimum for each subset
 is necessarily below (w.r.t the order) any other upper bound, implying
 that any two non-unique suprema must be above and below each other
 (since even though they are \emph{least} upper bounds, they are still
-upper bounds) - the anti-symmetry property of partial orderings
+upper bounds) --- the anti-symmetry property of partial orderings
 requires that in this case, both elements are equal. A similar
 argument holds for greatest lower bounds.
 
 A useful situation to highlight is when we want to know the supremum
-and infimum of only two elements - define the notation $a \join b$ for
-their supremum $\sup(\Set{x,y})$, or \emph{join}, of $a,b \in V$, and
-$a \meet b$ for their infimum $\sup(\Set{x,y})$, or \emph{meet}. This
-leads to a particular type of poset called a \emph{lattice}.
+and infimum of only two elements --- define the notation $a \join b$
+for their supremum $\sup(\Set{x,y})$, or \emph{join}, of $a,b \in V$,
+and $a \meet b$ for their infimum $\sup(\Set{x,y})$, or
+\emph{meet}. This leads to a particular type of poset called a
+\emph{lattice}.
 
 
 \begin{framed}
@@ -293,9 +293,8 @@ equality in (\ref{eq:1}), we get a \emph{distributive lattice}.
 
 These tools can be used to equip vector spaces with an additional
 structure. In particular, requiring that this enhanced vector space be
-a lattice provides us with a \emph{Riesz space}, giving the
-foundation on which we can construct a conditional expectation
-operator.
+a lattice provides us with a \emph{Riesz space}, giving the foundation
+on which we can construct a conditional expectation operator.
 
 \begin{framed}
   \begin{defn}[ordered vector space]\label{def:5}
@@ -319,7 +318,7 @@ operator.
 
 Subsets of Riesz spaces that arise from the lattice structure must be
 described as well. Since Riesz spaces inherit the vector space
-structure as well, we can talk about \emph{Riesz subspaces} - these
+structure as well, we can talk about \emph{Riesz subspaces} --- these
 are just ordinary subspaces with the additional property of being
 closed under meets and joins. We can further classify these subspaces
 into \emph{order ideals} and \emph{bands}.
@@ -335,8 +334,8 @@ which will give us the concept of \emph{absolute value}.
   \end{defn}
 
 \begin{defn}[positive cone]\label{def:8}
-  The \emph{\index{positive cone}positive cone} of $V$ is the subset $V^+
-  = \Set{v \in V : 0 \leq v}$.
+  The \emph{\index{positive cone}positive cone} of $V$ is the subset
+  $V^+ = \Set{v \in V : 0 \leq v}$.
 \end{defn}
 
 The following two theorems can be easily verified:
@@ -346,28 +345,27 @@ The following two theorems can be easily verified:
   For $v,w \in V$, we have
   \begin{deflist}{width-text}
   \item
-  \item[(i)] $v^+$ and $v^-$ are members of $V^+$, $(-v)^+=v^-$,
-    $(-v)^-=v^+$, and $|-v|=|v|$.
+  \item[(i)] $v^+$ and $v^-$ are members of $V^+$, ${(-v)}^+=v^-$,
+    ${(-v)}^-=v^+$, and $|-v|=|v|$.
   \item[(ii)] $v = v^+ - v^-$, $v^+ \meet v^-=0$, and $|v| = v^++v^-$
     (so $|v| \in V^+$).
   \item[(iii)] $0 \leq v^+ \leq |v|$ and $0 \leq v^- \leq
     |v|$. Furthermore, $-v^- \leq v \leq v^+$ and $|v|=0$ if and only
-  if $v=0$.
-\item[(iv)] $v \leq w$ if and only if $v^+ \leq w^+$ and $v^- \geq
-  w^-$.
-\end{deflist}
+    if $v=0$.
+  \item[(iv)] $v \leq w$ if and only if $v^+ \leq w^+$ and $v^- \geq
+    w^-$.
+  \end{deflist}
 \end{thm}
 Since $v \join w + u = (v + u) \join (w + u)$, the following theorem
 follows from
 \begin{align*}
   v \join w &= (v-w) \join 0 + w \\
-  &= (v-w)^+ + w
+  &= {(v-w)}^+ + w
 \end{align*}
 
-Similarly for $v \meet w = -(v-w)^+ v$.
+Similarly for $v \meet w = -{(v-w)}^+ v$.
 
-\begin{thm}[Equalities]
-  \label{thr:2}
+\begin{thm}[Equalities]\label{thr:2}
   For $v,w \in V$, we have
   \begin{enumerate}
   \item\label{item:1} $v \join w + w \meet v = v + w$
@@ -392,40 +390,73 @@ in examining Riesz spaces.
   subspace would expand into the entire space.
 
   \begin{defn}[order ideals and bands]\label{def:10}
-    An \emph{\index{order ideal}order ideal} $I$ is a solid linear subspace of
-    $V$. If every subset of this order ideal has its supremum (when it
-    exists) in the order ideal itself, we call it a
-    \emph{\index{band}band}. An order ideal generated by a non-empty subset
-    $U$ of $V$ is the intersection of all order ideals containing $U$ -
-    similarly for a band. An order ideal \emph{generated} by $v \in V$ is
-    the smallest order ideal containing $v$, which is the set $I_{v} =
-    \Set{w \in V: |w| \leq |\alpha v|}$, $\alpha \in \R$.
+    An \emph{\index{order ideal}order ideal} $I$ is a solid linear
+    subspace of $V$. If every subset of this order ideal has its
+    supremum (when it exists) in the order ideal itself, we call it a
+    \emph{\index{band}band}. An order ideal generated by a non-empty
+    subset $U$ of $V$ is the intersection of all order ideals
+    containing $U$ --- similarly for a band. An order ideal
+    \emph{generated} by $v \in V$ is the smallest order ideal
+    containing $v$, which is the set $I_{v} = \Set{w \in V: |w| \leq
+      |\alpha v|}$, $\alpha \in \R$.
   \end{defn}
 
   \begin{rem}\label{rem:1}
     It turns out that an order ideal is also a Riesz subspace. From
     \textbf{Def:\ref{def:9}} it suffices to show that $v \join w \in
     I$ for any $v,w \in V$. This follows immediately from
-    \textbf{Thm:\ref{thr:2}} , which gives $v \join w =
+    \textbf{Thm:\ref{thr:2}}, which gives $v \join w =
     \frac{1}{2}(v+w+|v-w|) \leq |v| + |w| + |v - w|$.
   \end{rem}
+
+\begin{exa}
+  Let $V=C[0,1]$, the set of real continuous functions on $[0,1]$ with
+  the usual pointwise partial ordering. Define $I = \Set{f \in V :
+    f(0) = 0}$. This is an ideal, since it is downward closed and for
+  any $f,g \in I$ we have $\alpha f(0) + \beta g(0) = 0$. However, it
+  is not a band. Define $f_n(x) = \inf_{x \in [0,1]}(nx, 1(x))$, where
+  $1$ is the constant function equal to $1$ almost everywhere. Since
+  $f_n(0) = 0$ for any $n$, $f_n \in I$. But if we take the supremum
+  over all $n$ of $\Set{f_n}$ (as a function), we get that
+  $\sup_n({f_n}) = 1$, and since $1(x) = 1 \neq 0$ the supremum of
+  $\Set{f_n}$ is not contained in $I$. Thus $I$ is not a band.
+\end{exa}
+
+\begin{exa}
+  Let $V=C[0,1]$ as above. Define $B = \Set{f \in V : f(x) = 0, x \in
+    [0, \frac{1}{2}]}$. Clearly this is downward closed with respect
+  to the partial ordering, and is also a linear subspace. Thus $B$ is
+  an ideal. If $B$ is a band, then for every set of functions in $V$
+  that possess a supremum, that supremum necessarily vanishes on
+  $[0,\frac{1}{2}]$ as well. Suppose this were not the case. Then
+  there exists an increasing net of functions $\Set{u_{\alpha}} \in B$
+  converging to $u$, where $u(x) \neq 0 $ for some $x_0 \in
+  [0,\frac{1}{2}]$, and by the continuity of $u$ there exists a
+  neighborhood $U$ of $x_0$ such that $u(x) \neq 0$ for $x \in U$. If
+  we define a function $\gamma$ that is $1$ on $[0,1]/((0,\frac{1}{2})
+  \cap U)$ and $0$ everywhere else, then $u(1 - \gamma)$ is a smaller
+  upper bound than $u$. 
+
+\end{exa}
+
 \end{framed}
 
 \begin{exa}
 
 \end{exa}
 
-So every band is an order ideal, but not every order ideal is a band. We can also
-distinguish between order ideals (bands) generated by single elements, or
-\emph{principal order ideals (bands)}. Furthermore, we can examine those
-elements which can generate order ideals (bands) equal to the space itself
-(note that the entire space is necessarily a band).
+So every band is an order ideal, but not every order ideal is a
+band. We can also distinguish between order ideals (bands) generated
+by single elements, or \emph{principal order ideals
+  (bands)}. Furthermore, we can examine those elements which can
+generate order ideals (bands) equal to the space itself (note that the
+entire space is necessarily a band).
 
 \begin{framed}
   \begin{defn}[order unit]\label{def:11}
     An \emph{\index{order unit}order unit} is an element $e \in V$, $f
-    > 0$ such that the order ideal generated by $e$ is $V$. Similarly, $e$
-    is a \emph{\index{weak order unit}weak order unit} if the band
+    > 0$ such that the order ideal generated by $e$ is $V$. Similarly,
+    $e$ is a \emph{\index{weak order unit}weak order unit} if the band
     generated by $e$ is $V$.
   \end{defn}
   \begin{defn}[directed sets]\label{def:12}
@@ -435,7 +466,7 @@ elements which can generate order ideals (bands) equal to the space itself
     elements $v_{\alpha}$, $\alpha \in F$ where $F$ is some non-empty
     indexing set, is also said to be \emph{upward directed} if for
     each $a,b \in F$ there exists $c \in F$ such that $v_c \geq v_a
-    \join v_c$. If $v = \sup({v_\alpha})$ then we say that
+    \join v_b$. If $v = \sup({v_\alpha})$ then we say that
     $v_{\alpha}$ is \emph{upward directed towards v} and we write
     $v_{\alpha}\uparrow_{\alpha} v$. Downward directed is defined
     similarly.
@@ -519,7 +550,7 @@ space of a preordered Riesz space is a Riesz space.
   \begin{deflist}{width-text}
   \item[(I)] $\E_W$ is a \emph{positive linear projection}.
   \item[(II)] $\E_W$ is \emph{order continuous}.
-  \item[(III)] $\E_W$ preserves \emph{weak order units}.
+  \item[(III)] $\E_W$ preserves \emph{weak order units}.m
   \end{deflist}
 \end{defn}
 
@@ -552,16 +583,16 @@ the Maximal Ergodic Theorem.
 
   Let $V$ be a Riesz space with a weak order unit $e$. Let
   $\E_W$ be the conditional expectation operator on V such that
-  $e = \E_We$, and define the operator $T : V \to V$ to be
+  $e = \E_W e$, and define the operator $T : V \to V$ to be
   positive with $\E_W|Tf| \leq \E_W|f|$, $f \in
   \E_W$. Define the \emph{\index{nth maximal operator}nth
     maximal operator}, for $n \geq 1$
   \begin{equation}\label{eq:2}
-    M_n(f) = \sum\limits_{k=0}^{0} T^kf \join \sum\limits_{k=0}^{1} T^kf \join \cdots \join \sum\limits_{k=0}^{n-1} T^kf = \bigvee_{i=0}^n \sum\limits_{k=0}^{i-1} T^kf
+    M_n(f) = \sum\limits_{k=0}^{0} T^k f \join \sum\limits_{k=0}^{1} T^k f \join \cdots \join \sum\limits_{k=0}^{n-1} T^k f = \bigvee_{i=0}^n \sum\limits_{k=0}^{i-1} T^k f
   \end{equation}
 
   Now define the \emph{\index{maximal band}maximal band} $M(f)$ to be
-  the band generated by $\Set{M_n(f)^+ | n \in \NN}$, and $J_{M(f)}$
+  the band generated by $\Set{M_n{(f)}^+ | n \in \NN}$, and $J_{M(f)}$
   to be the band projection onto the maximal band. Then we have
 
 \begin{equation}\label{eq:3}
@@ -573,36 +604,35 @@ the Maximal Ergodic Theorem.
   First we prove that that for each nth maximal operator we have
   something similar to \eqref{eq:3}. Each nth maximal operator is
   positive and thus we can write it in terms of a band projection
-  $J_{M_n(f)^+}$ on the band generated by the nth maximal operator
+  $J_{M_n{(f)}^+}$ on the band generated by the nth maximal operator
   itself. We then note that the sequence of band projections
   associated with each maximal operator is upward directed to the band
   projection onto the maximal band. Once we have that
-  $\E_W(J_{M_n(f)^+}f) \geq 0$, we can then use the order
+  $\E_W(J_{M_n{(f)}^+}f) \geq 0$, we can then use the order
   continuity of $\E_W$ to complete the proof.
 \end{framed}
 
-\begin{proof}
-  \label{prf:max-erg}
+\begin{proof}\label{prf:max-erg}
 
   Since $T$ is positive and
   \begin{equation}
     \label{eq:4}
-    M_n(f) \geq \sum\limits_{k=0}^{j-1} T^kf
+    M_n(f) \geq \sum\limits_{k=0}^{j-1} T^k f
   \end{equation}
 
   for $j = 0,\dots,n$, we must have that for the same $j$ values,
 
   \begin{equation}
     \label{eq:5}
-    TM_n(f) \geq T\sum\limits_{k=0}^{j-1} T^kf = \sum\limits_{k=0}^{j-1} T^{k+1}f
+    TM_n(f) \geq T\sum\limits_{k=0}^{j-1} T^k f = \sum\limits_{k=0}^{j-1} T^{k+1}f
   \end{equation}
 
-  Since $TM_n(f) = T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^kf$ we
+  Since $TM_n(f) = T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^k f$ we
   have that
 
   \begin{equation}
     \label{eq:6}
-    f + TM_n(f) = f + T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^kf 
+    f + TM_n(f) = f + T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^k f 
   \end{equation}
 
   and then \eqref{eq:5} implies that
@@ -635,7 +665,7 @@ the Maximal Ergodic Theorem.
 
   \begin{equation}
     \label{eq:12}
-    M_n(f) = J_{M_n(f)^+}M_n(f) 
+    M_n(f) = J_{M_n{(f)}^+}M_n(f) 
   \end{equation}
 
   and another
@@ -644,27 +674,27 @@ the Maximal Ergodic Theorem.
     \label{eq:13}
     M_n(f) &= 0 \join \bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f \\
     \label{eq:14}
-    &= J_{M_n(f)^+}\bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f
+    &= J_{M_n{(f)}^+}\bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f
   \end{align}
 
-  Thus we can apply $J_{M_n(f)^+}$ to \eqref{eq:11} and substitute,
+  Thus we can apply $J_{M_n{(f)}^+}$ to \eqref{eq:11} and substitute,
   yielding
 
   \begin{align}
     \label{eq:15}
-    J_{M_n(f)^+}(f) &\geq J_{M_n(f)^+}(\bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f - TM_n(f)) \\
+    J_{M_n{(f)}^+}(f) &\geq J_{M_n{(f)}^+}(\bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f - TM_n(f)) \\
     \label{eq:16}
-    &= M_n(f)-(J_{M_n(f)^+}TM_n(f))
+    &= M_n(f)-(J_{M_n{(f)}^+}TM_n(f))
   \end{align}
 
-  Finally, applying $\E_W$, using that $\E_WJ=J\E_W$
-  and $\E_WT(f) \leq \E_W(f) $ (recall that $T$ is a
+  Finally, applying $\E_W$, using that $\E_W J=J\E_W$
+  and $\E_W T(f) \leq \E_W(f) $ (recall that $T$ is a
   positive operator) gives
   \begin{align*}
     \label{eq:17}
-    \E_WJ_{M_n(f)^+}(f)&\geq \E_WM_n(f)-\E_W(J_{M_n(f)^+}TM_n(f)) \\
-    &\geq \E_WM_n(f)-\E_W(J_{M_n(f)^+}M_n(f)) \\
-    &= \E_W(M_n(f)-(J_{M_n(f)^+}M_n(f))) \\
+    \E_W J_{M_n{(f)}^+}(f)&\geq \E_W M_n(f)-\E_W(J_{M_n{(f)}^+}TM_n(f)) \\
+    &\geq \E_W M_n(f)-\E_W(J_{M_n{(f)}^+}M_n(f)) \\
+    &= \E_W(M_n(f)-(J_{M_n{(f)}^+}M_n(f))) \\
     &= \E_W(0) \\
     &= 0
   \end{align*}
