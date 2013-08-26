@@ -6,6 +6,7 @@
 %%% Packages
 
 \usepackage{amsmath, amssymb}
+\usepackage{cite}
 \makeindex
 \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
 \usepackage{setspace}
@@ -158,52 +159,68 @@
 \author{Tom LaGatta and Jake Miller}
 \title{Ergodic Ideals}
 
-\date{July 2013}
+\date{August 2013}
 
 
 \begin{document}
 
 \maketitle
 
-\textbf{Very rough draft. Please do not distribute.}
-\begin{defn}[Properties of Conditional Expectation]\label{def:1}
-  Let $\E(f|\C) : X \to R$ be the conditional expectation as defined
-  in the previous section. Define $1 : X \to R$ to be a function
-  equal to $1$ almost surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the
-  mapping $f \mapsto \E(f|\C)$.
-  \begin{deflist}{width-text}
-  \item[(I)] $\mathbf{E}$ is linear in $L^1(X,\X,P)$.
-  \item[(II)] $\E(1|\C) = 1$
-  \item[(III)] For each $C \in \C$ we have\footnote{This is because
-      $\int\limits_C\E(\one_C \E(f|\C)|\C)dP=\int\limits_C \one_C
-      \E(f|\C)dP=\int\limits_X \E(\one_C f | \C)dP=\int\limits_X
-      \one_C fdP=\int\limits_C fdP$ \label{fn:1}} $\E(\one_C
-    E(f|\C)|\C) = \E(f|\C)$ (so $\mathbf{E}$ is \emph{idempotent})
-  \item[(IV)] If $f \geq 0$, then $\E(f|\C) \geq 0$
-  \item[(V)] $f_n \rightarrow f$ in $L^1(X,\X,P) \implies \E(f_n|\C)
-    \rightarrow \E(f|\C)$ in $L^1(X,\X,P)$
-  \end{deflist}
-\end{defn}
+\part{Introduction}
 
-Our primary goal is to define conditional expectation in an order
-theoretical context.
+This paper is primarily an attempt to pull together various concepts
+relating to ergodicity, order theory, probability, and classical
+analysis; the end result being a rough sketch of their interactions
+and (hopefully) a unique way to look at ergodicity.
 
-\begin{framed}
-  Since $L^1(V,\X,\P)$ is complete, we must have that for any bounded
-  set in $L^1(V,\X,\P)$ the supremum exists in $L^1(V,\X,\P)$. Thus
-  $L^1(V,\X,\P)$ is a Dedekind complete (\textbf{Def:\ref{def:13}})
-  Riesz space (\textbf{Def:\ref{def:6}}). This suggests that
-  $\mathbf{E}$ should be a mapping on Dedekind complete Riesz
-  spaces. Moreover, by (I), (III), and (IV), this mapping should be a
-  \index{positive linear projection}positive linear projection on a
-  Riesz subspace (\textbf{Def:\ref{def:8}}). (II) says that
-  $\mathbf{E}$ should preserve weak order units
-  (\textbf{Def:\ref{def:10}}), since the smallest order ideal
-  (\textbf{Def:\ref{def:9}}) containing $1$ in $L^1(V,\X,\P)$ is the
-  entire space, and this order ideal is a band (\textbf{Def:\ref{def:9}})
-  since $L^1$ is Dedekind complete. Finally, (V) says that
-  $\mathbf{E}$ should be order continuous (\textbf{Def:\ref{def:14}}).
-\end{framed}
+What does it mean for a transformation to be ergodic? Take a
+measurable space $(X,\X,\mu)$ where $\mu(X) = 1 $. A measure
+preserving transformation $T : X \to X$ is ergodic if for any $E \in
+\X$ where $T(E) = E$ we have $\mu(E) = 1$ or $\mu(E) = 0$. The
+transformation is ergodic when, up to measure 0, the only set that is
+invariant under $T$ is the entire space. One can also say that a
+measure is ergodic with respect to a transformation.
+
+The big result of ergodic theory is that given a measurable space and
+ergodic transformation as above, and an integrable function $f$, we
+have the following equation almost everywhere:
+
+\begin{equation}
+  \label{eq:1}
+  \lim_{n \to \infty}\frac{1}{n} \sum\limits_{k=0}^{n-1}f(T^k x) =
+  \frac{1}{\mu(x)}\int\limits_X fd\mu
+\end{equation}
+
+This is the Birkhoff Pointwise Ergodic Theorem. The probabilistic
+version replaces the right side with an expected value.
+
+There is another result, called the Birkhoff-Khinchin Ergodic Theorem,
+that is very similar but \emph{does not} require ergodicity!  We
+replace the right side of the previous equation with a conditional
+expectation conditioned on the sub-$\sigma$-algebra $\C$ of
+$T$-invariant subsets and require only that $T$ is measure preserving
+--- i.e, we have that the following equation is true almost surely:
+
+\begin{equation}
+  \label{eq:2}
+  \lim_{n \to \infty}\frac{1}{n} \sum\limits_{k=0}^{n-1}f(T^k x) =
+  \E(f | \C)
+\end{equation}
+
+Notice that when $T$ is ergodic, the sub-$\sigma$-algebra is trivial
+and the right side turns into a normal expectation! This suggests that
+a real understanding of ergodicity might be obtained from
+investigating conditional expectations in a setting that illuminates
+the structure of the space itself. Here is where order theory plays
+its part.
+
+Kuo et al.\cite{Kuo2007422} has detailed a formulation of an order
+theoretic conditional expectation on Riesz spaces that is used to
+prove an analogue of the Birkhoff-Khinchin ergodic theorem. The goal
+of this paper is to build the fundamentals needed to understand Kuo's
+result, which we will then use to detail what order theory could mean
+for ergodic theory and probability.
+
 
 \part{Order Theory}
 
@@ -221,8 +238,7 @@ neither above nor below each other --- in this structure, it is
 V$. Note that an order in which the above holds can still be a partial
 order.
 
-\begin{framed}
-  \begin{defn}[partially ordered set]\label{def:2}
+  \begin{defn}[partially ordered set]\label{def:1}
     A \emph{\index{partially ordered set}partially ordered set}, or
     \emph{\index{poset}poset}, is a set $V$ equipped with the ordering
     $\leq$, called \emph{partial order}, that satisfies the following
@@ -236,70 +252,63 @@ order.
       (\emph{anti-symmetry})
     \end{deflist}
   \end{defn}
-\end{framed}
 
-Naturally, an ordering gives rise to the idea of \emph{upper} and
-\emph{lower} bounds for subsets of an ordered set, which are elements
-(not necessarily contained in the set itself) that are above (below)
-every element in a particular subset. A subset may also have a
-particular type of upper bound called a \emph{supremum}, or a
-particular type of lower bound called the \emph{infimum} --- these are
-the least upper bounds and the greatest lower bounds respectively. The
-anti-symmetry property in a partially ordered set implies the
-uniqueness of the supremum and the infimum for each subset
-\emph{provided that they exist}. This is because any least upper bound
-is necessarily below (w.r.t the order) any other upper bound, implying
-that any two non-unique suprema must be above and below each other
-(since even though they are \emph{least} upper bounds, they are still
-upper bounds) --- the anti-symmetry property of partial orderings
-requires that in this case, both elements are equal. A similar
-argument holds for greatest lower bounds.
+  Naturally, an ordering gives rise to the idea of \emph{upper} and
+  \emph{lower} bounds for subsets of an ordered set, which are
+  elements (not necessarily contained in the set itself) that are
+  above (below) every element in a particular subset. A subset may
+  also have a particular type of upper bound called a \emph{supremum},
+  or a particular type of lower bound called the \emph{infimum} ---
+  these are the least upper bounds and the greatest lower bounds
+  respectively. The anti-symmetry property in a partially ordered set
+  implies the uniqueness of the supremum and the infimum for each
+  subset \emph{provided that they exist}. This is because any least
+  upper bound is necessarily below (w.r.t the order) any other upper
+  bound, implying that any two non-unique suprema must be above and
+  below each other (since even though they are \emph{least} upper
+  bounds, they are still upper bounds) --- the anti-symmetry property
+  of partial orderings requires that in this case, both elements are
+  equal. A similar argument holds for greatest lower bounds.
 
-A useful situation to highlight is when we want to know the supremum
-and infimum of only two elements --- define the notation $a \join b$
-for their supremum $\sup(\Set{x,y})$, or \emph{join}, of $a,b \in V$,
-and $a \meet b$ for their infimum $\sup(\Set{x,y})$, or
-\emph{meet}. This leads to a particular type of poset called a
-\emph{lattice}.
+  A useful situation to highlight is when we want to know the supremum
+  and infimum of only two elements --- define the notation $a \join b$
+  for their supremum $\sup(\Set{x,y})$, or \emph{join}, of $a,b \in
+  V$, and $a \meet b$ for their infimum $\sup(\Set{x,y})$, or
+  \emph{meet}. This leads to a particular type of poset called a
+  \emph{lattice}.
 
 
-\begin{framed}
-  \begin{defn}[lattice]\label{def:3}
+
+  \begin{defn}[lattice]\label{def:2}
 
     A \emph{\index{lattice}lattice} is a poset $V$ where for any $v,w
     \in V$ we have $v \join w \in V$ and $v \meet w \in V$.
 
   \end{defn}
-\end{framed}
-
-For $V$ a lattice and $a,b,c \in V$, if $a \leq c $ and $b \leq c $,
-we have that $a \join b \leq c $. Thus
-\begin{equation}
-  \label{eq:1}
-  (u \meet w) \join (v \meet w) \leq w \join (u \meet v)
-\end{equation}
-since for any $u,v,w \in V$ we have that $u \meet w \leq w \join (u
-\meet v)$ and $v \meet w \leq w \join (u \meet v)$. If we have
-equality in (\ref{eq:1}), we get a \emph{distributive lattice}.
 
 
-\begin{framed}
-  \begin{defn}[distributive lattice]\label{def:4} %
-    A \emph{\index{distributive lattice}distributive lattice} is a
-    lattice where $w \join (u \meet v) = (w \meet u) \join (w \meet
-    v)$.
-  \end{defn}
-\end{framed}
+  For $V$ a lattice and $a,b,c \in V$, if $a \leq c $ and $b \leq c $,
+  we have that $a \join b \leq c $. Thus
+  \begin{equation}
+    \label{eq:3}
+    (u \meet w) \join (v \meet w) \leq w \join (u \meet v)
+  \end{equation}
+  since for any $u,v,w \in V$ we have that $u \meet w \leq w \join (u
+  \meet v)$ and $v \meet w \leq w \join (u \meet v)$. If we have
+  equality in (\ref{eq:3}), we get a \emph{\index{distributive
+      lattice}distributive lattice}, i.e a lattice where $w \join (u
+  \meet v) = (w \meet u) \join (w \meet v)$.
 
-These tools can be used to equip vector spaces with an additional
-structure. In particular, requiring that this enhanced vector space be
-a lattice provides us with a \emph{Riesz space}, giving the foundation
-on which we can construct a conditional expectation operator.
+  These tools can be used to equip vector spaces with an additional
+  structure. In particular, requiring that this enhanced vector space
+  be a lattice provides us with a \emph{Riesz space}, giving the
+  foundation on which we can construct a conditional expectation
+  operator.
 
-\begin{framed}
-  \begin{defn}[ordered vector space]\label{def:5}
-    An \emph{\index{ordered vector space}ordered vector space} V is a
-    vector space over $\R$ with the following properties.
+  \begin{defn}[ordered vector space]\label{def:4}
+    An \emph{\index{ordered vector space}ordered vector space} $V$ is
+    a vector space over $\R$ with the following properties:
+
 
     Let $u,v,w \in V$:
     \begin{deflist}{width-text}
@@ -308,58 +317,64 @@ on which we can construct a conditional expectation operator.
     \item If $v \leq w$ then $\alpha v \leq \alpha w$, $\alpha \geq
       0$, $\alpha \in \R$. (\emph{\index{homogeneity}homogeneity})
     \end{deflist}
+
+    ($0$ is the additive inverse of the vector space)
   \end{defn}
 
-\begin{defn}[Riesz space]\label{def:6}
+\begin{defn}[Riesz space]\label{def:5}
   A \emph{\index{Riesz space}Riesz space} is an ordered vector space
   that is also a distributive lattice.
 \end{defn}
-\end{framed}
 
 Subsets of Riesz spaces that arise from the lattice structure must be
 described as well. Since Riesz spaces inherit the vector space
-structure as well, we can talk about \emph{Riesz subspaces} --- these
-are just ordinary subspaces with the additional property of being
-closed under meets and joins. We can further classify these subspaces
-into \emph{order ideals} and \emph{bands}.
+structure, we can talk about \emph{Riesz subspaces} --- these are just
+ordinary subspaces with the additional property of being closed under
+meets and joins. We can further classify these subspaces into
+\emph{order ideals} and \emph{bands}.
 
 From now on, we will assume that $V$ is a Riesz space. First, we must
 describe a way of decomposing $v \in V$ into two different parts,
-which will give us the concept of \emph{absolute value}.
+which will give us the concepts of positivity and \emph{absolute
+  value}.
 
-\begin{framed}
-  \begin{defn}[Absolute value]\label{def:7}
+  \begin{defn}[Absolute value]\label{def:6}
     For $v \in V$ we define $v^+=v \join 0$, $v^-=-v \join 0$, and
-    $|v| = v \join -v$.
+    $|v| = v \join -v$. The last expression is called the
+    \emph{\index{absolute value}absolute value} of $v$.
   \end{defn}
 
+  \begin{defn}[positive cone]\label{def:11}
+    The \emph{\index{positive cone}positive cone} of $V$ is the subset
+    $V^+ = \Set{v \in V : 0 \leq v}$.
+  \end{defn}
 
-The following two theorems can be easily verified:
+  The following two theorems can be easily verified:
 
-\begin{thm}[Properties of Decomposition]
-  \label{thr:1}
-  For $v,w \in V$, we have
-  \begin{deflist}{width-text}
-  \item
-  \item[(i)] $v^+$ and $v^-$ are members of $V^+$, ${(-v)}^+=v^-$,
-    ${(-v)}^-=v^+$, and $|-v|=|v|$.
-  \item[(ii)] $v = v^+ - v^-$, $v^+ \meet v^-=0$, and $|v| = v^++v^-$
-    (so $|v| \in V^+$).
-  \item[(iii)] $0 \leq v^+ \leq |v|$ and $0 \leq v^- \leq
-    |v|$. Furthermore, $-v^- \leq v \leq v^+$ and $|v|=0$ if and only
-    if $v=0$.
-  \item[(iv)] $v \leq w$ if and only if $v^+ \leq w^+$ and $v^- \geq
-    w^-$.
-  \end{deflist}
-\end{thm}
-Since $v \join w + u = (v + u) \join (w + u)$, the following theorem
-follows from
-\begin{align*}
-  v \join w &= (v-w) \join 0 + w \\
-  &= {(v-w)}^+ + w
-\end{align*}
+  \begin{thm}[Properties of Decomposition]
+    \label{thr:1}
+    For $v,w \in V$, we have
+    \begin{deflist}{width-text}
+    \item
+    \item[(i)] $v^+$ and $v^-$ are members of $V^+$, ${(-v)}^+=v^-$,
+      ${(-v)}^-=v^+$, and $|-v|=|v|$.
+    \item[(ii)] $v = v^+ - v^-$, $v^+ \meet v^-=0$, and $|v| =
+      v^++v^-$ (so $|v| \in V^+$).
+    \item[(iii)] $0 \leq v^+ \leq |v|$ and $0 \leq v^- \leq
+      |v|$. Furthermore, $-v^- \leq v \leq v^+$ and $|v|=0$ if and
+      only if $v=0$.
+    \item[(iv)] $v \leq w$ if and only if $v^+ \leq w^+$ and $v^- \geq
+      w^-$.
+    \end{deflist}
+  \end{thm}
+  Since $v \join w + u = (v + u) \join (w + u)$, the following theorem
+  follows from
+  \begin{align*}
+    v \join w &= (v-w) \join 0 + w \\
+    &= {(v-w)}^+ + w
+  \end{align*}
 
-Similarly for $v \meet w = -{(v-w)}^+ v$.
+  Similarly for $v \meet w = -{(v-w)}^+ v$.
 
 \begin{thm}[Equalities]\label{thr:2}
   For $v,w \in V$, we have
@@ -369,60 +384,74 @@ Similarly for $v \meet w = -{(v-w)}^+ v$.
   \end{enumerate}
 \end{thm}
 
-\end{framed}
+
+We say that elements $a$ and $b$ of a Riesz space are \emph{disjoint}
+if $a \join b = 0$. Then the above construction (most importantly item
+2 of \textbf{Theorem \ref{thr:1}}) reveals that any element $v$ of a
+Riesz space can be completely characterized by two \emph{disjoint}
+elements in its positive cone.
+
+\begin{rem}\label{rem:6}
+  The the absolute value is an \emph{order theoretic} definition. It
+  is \emph{not necessarily} a vector space norm, though the two are
+  intimately related. The lattice structure on a Riesz space needs to
+  deal with the baggage that comes with a vector space, in particular
+  the additive inverse, and the absolute value is a way of taking an
+  element and fitting it nicely into the positive part (specifically,
+  the positive cone) of the space using a joining (supremum)
+  operation. That this is incredibly useful will become clear in the
+  rest of this section.
+\end{rem}
 
 The following definitions are probably the most important tools used
-in examining Riesz spaces.
-\begin{framed}
-  \begin{defn}[Riesz subspace]\label{def:8}
+in examining and characterizing Riesz spaces.
+
+  \begin{defn}[Riesz subspace]\label{def:7}
     A \emph{\index{Riesz subspace}Riesz subspace} $W$ of $V$ is a
     linear subspace of $V$ such that if $u,v \in W$ then $u \join v$
     and $u \meet v$ are also in $W$. (we can require only that $u
     \join v \in W$, since this implies that $u \meet v \in W$).
   \end{defn}
-  We call a set $W \subset V$ \emph{solid} if $w \in W$, $v \in V$ and
-  $|v| \leq |w|$, then $v \in W$. The absolute value allows us to talk
-  about solid linear subspaces, since otherwise any solid linear
-  subspace would expand into the entire space.
+  We call a set $W \subset V$ \emph{solid} if when $w \in W$, $v \in
+  V$ and $|v| \leq |w|$, then $v \in W$.
 
-  \begin{defn}[order ideals and bands]\label{def:9}
+  \begin{defn}[order ideals and bands]\label{def:8}
     An \emph{\index{order ideal}order ideal} $I$ is a solid linear
     subspace of $V$. If every subset of this order ideal has its
     supremum (when it exists) in the order ideal itself, we call it a
     \emph{\index{band}band}. An order ideal generated by a non-empty
     subset $U$ of $V$ is the intersection of all order ideals
-    containing $U$ --- similarly for a band. An order ideal
-    \emph{generated} by $v \in V$ is the smallest order ideal
-    containing $v$, which is the set $I_{v} = \Set{w \in V: |w| \leq
-      |\alpha v|}$, $\alpha \in \R$.
+    containing $U$ --- similarly for a band. If $U$ is the set
+    consisting of a single element $v \in V$, we say that the order
+    ideal is \emph{generated} by $v \in V$, which is the smallest
+    order ideal containing $v$. This can be explicitly written down as
+    the set $I_{v} = \Set{w \in V: |w| \leq \alpha |v|}$, $\alpha \in
+    \R$.
   \end{defn}
 
-  \begin{rem}\label{rem:1}
+  \begin{rem}[Order Ideal is Riesz Subspace]\label{rem:1}
     It turns out that an order ideal is also a Riesz subspace. From
-    \textbf{Def:\ref{def:8}} it suffices to show that $v \join w \in
-    I$ for any $v,w \in V$. This follows immediately from
-    \textbf{Thm:\ref{thr:2}}, which gives $v \join w =
+    \textbf{Definition \ref{def:7}} it suffices to show that $v \join
+    w \in I$ for any $v,w \in V$. This follows immediately from
+    \textbf{Theorem \ref{thr:2}}, which gives $v \join w =
     \frac{1}{2}(v+w+|v-w|) \leq |v| + |w| + |v - w|$.
   \end{rem}
 
+  So every band is an order ideal, but not every order ideal is a
+  band. We can also distinguish between order ideals (bands) generated
+  by single elements, or \emph{principal order ideals
+    (bands)}. Furthermore, we can examine those elements which can
+  generate order ideals (bands) equal to the space itself (note that
+  the entire space is necessarily a band, as it trivially contains any
+  and all suprema when they exist).
 
-\end{framed}
-
-So every band is an order ideal, but not every order ideal is a
-band. We can also distinguish between order ideals (bands) generated
-by single elements, or \emph{principal order ideals
-  (bands)}. Furthermore, we can examine those elements which can
-generate order ideals (bands) equal to the space itself (note that the
-entire space is necessarily a band).
-
-\begin{framed}
-  \begin{defn}[order unit]\label{def:10}
-    An \emph{\index{order unit}order unit} is an element $e \in V$, $f
+  \begin{defn}[order unit]\label{def:9}
+    An \emph{\index{order unit}order unit} is an element $e \in V$, $e
     > 0$ such that the order ideal generated by $e$ is $V$. Similarly,
     $e$ is a \emph{\index{weak order unit}weak order unit} if the band
     generated by $e$ is $V$.
   \end{defn}
-  \begin{defn}[directed sets]\label{def:11}
+  \begin{defn}[directed sets]\label{def:10}
     A non-empty subset $W$ of $V$ is called \emph{\index{upward
         directed}upward directed} if for any two elements $v,u \in W$
     there exists a $w \in W$ such that $w \geq v \join u$.A family of
@@ -432,19 +461,20 @@ entire space is necessarily a band).
     \join v_b$. If $v = \sup({v_\alpha})$ then we say that
     $v_{\alpha}$ is \emph{upward directed towards v} and we write
     $v_{\alpha}\uparrow_{\alpha} v$. Downward directed is defined
-    similarly. We define a \emph{\index{net}net} in V to be a function from a
-    directed set $A$ to $V$, usually denoted by $\Set{v_{\alpha}}$ for
-    $\alpha \in A$ and $v_{\alpha} \in V$. 
-    \begin{rem}\label{rem:2}
+    similarly. We define a \emph{\index{net}net} in V to be a function
+    from a directed set $A$ to $V$, usually denoted by
+    $\Set{v_{\alpha}}$ for $\alpha \in A$ and $v_{\alpha} \in V$.
+
+    \begin{rem}[Band Generated by Weak Order Unit]\label{rem:2}
       Since the band generated by a weak order unit $e \in V$ is
-      $I_{e} = \Set{w \in V: |w| \leq |\alpha e|}$, $\alpha \in \R$,
+      $I_{e} = \Set{w \in V: |w| \leq \alpha |e|}$, $\alpha \in \R$,
       it follows that $e$ is a weak order unit if and only if $V =
-      \Set{w \in V : (|w| \meet |\alpha e|) \uparrow_{\alpha}
+      \Set{w \in V : (|w| \meet \alpha |e|) \uparrow_{\alpha}
         |w|}$. This will be useful when we define band projections
-      (\textbf{Def:\ref{def:16}}).
+      (\textbf{Definition \ref{def:16}}).
     \end{rem}
   \end{defn}
-\end{framed}
+
 
 \begin{exa}[Ideal]\label{exa:1}
   Let $V=C[0,1]$, the set of real continuous functions on $[0,1]$ with
@@ -477,37 +507,51 @@ entire space is necessarily a band).
 
 \end{exa}
 
-\begin{framed}
-  \begin{defn}[positive cone]\label{def:12}
-    The \emph{\index{positive cone}positive cone} of $V$ is the subset
-    $V^+ = \Set{v \in V : 0 \leq v}$.
-  \end{defn}
 
-\begin{defn}[Dedekind complete]\label{def:13}
+
+\begin{defn}[Dedekind complete]\label{def:12}
   A partially ordered set $U$ is said to be \emph{\index{Dedekind
       complete}Dedekind complete} if every non-empty subset in $U$
-  that is bounded above (below) has a supremum (infimum) in $U$. A
-  Riesz space is Dedekind complete when every non-empty upward
-  directed subset of $V^+$ that is bounded above has a supremum.
+  that is bounded above (below) has a supremum (infimum) in $U$.
 \end{defn}
 
-\begin{defn}[order continuous]\label{def:14}
+\begin{rem}[Riesz Space and Dedekind Completeness]\label{rem:3}
+  A Riesz space is Dedekind complete if and only if every non-empty
+  upward directed subset of $V^+$ that is bounded above has a
+  supremum. Clearly the second part holds if the space is Dedekind
+  complete. To see the other direction, observe that one can join an
+  arbitrary element $f_0$ of a nonempty subset $D \in V$ that is
+  bounded above to every element in $D$, creating a new set $D_1 =
+  \Set{f \join f_0 : f \in D}$. Without loss of generality, assume
+  that $D$ contains all finite suprema, and note that both $D_1$ and
+  $D$ have the same set of upper bounds. Now we can take all elements
+  in $D_1$ and subtract $f_0$ from them, giving a subset of $V^+$ that
+  is bounded above and upward directed, namely $D_2 = \Set{f-f_0 : f
+    \in D_1}$. So by hypothesis $\sup{D_2}$ exists, and we have
+  $\sup{D_2} + f_0=\sup{D_1}=\sup{D}$.
+\end{rem}
+
+\begin{defn}[order continuous]\label{def:13}
   A linear operator $T : V \to W$ is said to be \emph{\index{order
       continuous}order continuous} if whenever $v_{\alpha} \downarrow
   0$ we have $T(v_{\alpha}) \downarrow 0$. This is equivalent to
   $v_{\alpha} \uparrow u$ implies $T(v_{\alpha}) \uparrow Tu$.
 \end{defn}
-\end{framed}
 
-A nice example of a Dedekind complete space is the space of
-real measurable functions $L^0(X,\R;\P)$ (identified up to $P$---measure zero).
+
+A nice example of a Dedekind complete space is the space of real
+measurable functions $L_0(X,\R;\P)$ (identified up to $P$---measure
+zero).
 
 \part{The Space of Measurable Functions}
+
+Our principle example of a Riesz space is the space of measurable
+functions over some measurable space.
 
 Let $(X, \X)$ be a measurable space and consider the space of real
 valued measurable functions on $X$, $\Meas(X,\R)$. Fixing a measure
 $\P$ on $(X, \X)$ we define the \emph{\index{ideal}ideal} to be the
-set $N_\P = \Set{A \in \X | \P(A) = 0}$. Let $L^0(X,R;\P)$ be the set
+set $N_\P = \Set{A \in \X | \P(A) = 0}$. Let $L_0(X,R;\P)$ be the set
 of equivalence classes of measurable functions up to $\P$-measure 0.
 
 \begin{rem}[Relation to Order Ideal]\label{rem:4}
@@ -517,7 +561,7 @@ of equivalence classes of measurable functions up to $\P$-measure 0.
 
 Define an equivalence relation $f \sim g$ on $\Meas(X, \R)$ if $f(x) =
 g(x)$ except on a set of measure 0 --- i.e, $\Set{x \in X : f(x) \neq
-  g(x)} \in N_\P$. Then we have $L^0(X,R;\P) = \Meas(X,\R) / \sim$.
+  g(x)} \in N_\P$. Then we have $L_0(X,R;\P) = \Meas(X,\R) / \sim$.
 
 A \emph{\index{preorder}preorder} is a relation $\preceq $ that is
 reflexive and transitive. Define a preorder $\preceq $ on the set
@@ -533,8 +577,8 @@ $(f \join g)(x) = \sup(f(x),g(x))$ for all $x \in X$. Also define a
 \emph{\index{preordered vector space}preordered vector space} in the
 same way, analagous to the ordered vector space definition.
 
-We say that $V$ is a \emph{\index{Preordered Riesz Space}Preordered
-  Riesz Space} if it is \emph{Preordered Vector Space} with a
+We say that $V$ is a \emph{\index{preordered Riesz space}preordered
+  Riesz space} if it is \emph{preordered Vector Space} with a
 \emph{pre-lattice} structure.
 
 \begin{pro}[Preordered Riesz Space]\label{pro:1}
@@ -547,7 +591,7 @@ We say that $V$ is a \emph{\index{Preordered Riesz Space}Preordered
 
   Reflexivity follows from the total ordering of the real line. For
   any $f \in \Meas(X, \R)$ we have that $\Set{x \in X | f(x) \geq
-    f(x)} = \emptyset \in N_P$. Thus $f \preceq f$.
+    f(x)} = \varnothing \in N_P$. Thus $f \preceq f$.
 
   For transitivity, suppose $f \preceq g$ and $g \preceq h$ and define
 
@@ -556,9 +600,9 @@ We say that $V$ is a \emph{\index{Preordered Riesz Space}Preordered
   B &= \Set{x \in X | g(x) > h(x)}
 \end{align*}
 
-By definition, $A,B \in N_P$. Since $A \cap B \subset A$ we have that
-$A \cap B \in N_P$. But this says that $f(x) > h(x)$ only on a set of
-measure zero. Thus $\preceq $ is transitive.
+By definition, $A,B \in N_P$. Observe that $A \cap B = \Set{x : f(x) >
+  g(x)}$. Since $A \cap B \subset A$ we have that $A \cap B \in
+N_P$. Thus $\preceq $ is transitive.
 
 That it is a preordered vector space follows similarly.
 
@@ -581,7 +625,7 @@ That it is a preordered vector space follows similarly.
 \end{proof}
 
 \begin{pro}[Quotient Space]\label{pro:3}
-  Define $f \sim g$ if $f \preceq g$ and $g \succeq f$. Then the
+  Define $f \sim g$ if $f \preceq g$ and $g \preceq f$. Then the
   quotient space $\Meas(X,\R)/\sim$ is a Riesz space.
 \end{pro}
 
@@ -600,11 +644,13 @@ That it is a preordered vector space follows similarly.
   space.
 \end{proof}
 
-Define $L^{\infty}=L^{\infty}(X,\R)$ to be the space of essentially
-bounded functions, which is a subset of $L^0$.
+Define $L_{\infty}=L_{\infty}(X,\R)$ to be the space of essentially
+bounded functions, which is a subset of $L_0$ --- so $f \in
+L_{\infty}$ if and only if there exists a $c$ such that $\Set{x :
+  |f(x)| > c} \in N_{\P}$.
 
-\begin{pro}[$L^{\infty}$ is an Order Ideal]\label{pro:4}
-  $L^{\infty}$ is an order ideal in $\Meas(X,\R)$. In particular, it
+\begin{pro}[$L_{\infty}$ is an Order Ideal]\label{pro:4}
+  $L_{\infty}$ is an order ideal in $\Meas(X,\R)$. In particular, it
   is the principal ideal generated by any constant function $\rho \in
   \Meas(X,\R)$.
 \end{pro}
@@ -615,48 +661,101 @@ bounded functions, which is a subset of $L^0$.
     \Meas(X, \R) : |g| \leq |\alpha \rho|}$ for some $\alpha \in
   \R$. But $g \in I_{\rho}$ if and only if the set $A = \Set{x \in X :
     |g|(x) > |\alpha \rho|(x)} = \Set{x \in X : |g|(x) > |C|} \in N_P$
-  for some constant $C$. Thus $I_{\rho} = L^{\infty}$.
+  for some constant $C$. Thus $I_{\rho} = L_{\infty}$.
 \end{proof}
 
-\begin{rem}[$L^{\infty}$ not a Band]\label{rem:5}
-  $L^{\infty}$ is not a band in $L^0$. To see this, we only
-  need to find a set of essentially bounded functions with a supremum
-  that is not essentially bounded. Since the set of simple functions
-  is a subspace of $L^{\infty}$, we only need to find a measurable
-  function that is in $L^p$ for some $p$ but not in $L^{\infty}$,
-  since functions in $L^P$ can be approximated by simple
+\begin{rem}[$L_{\infty}$ not a Band]\label{rem:5}
+  $L_{\infty}$ is not a band in $L_0$. To see this, we only need to
+  find a set of essentially bounded functions with a supremum that is
+  not essentially bounded. Since the set of simple functions is a
+  subspace of $L_{\infty}$, we only need to find a measurable function
+  that is in $L_p$ for some $p$ but not in $L_{\infty}$, since
+  functions in $L_P$ can be approximated by simple
   functions. $\frac{1}{\sqrt{x}}$ on $(0,1)$ is an example, since it
-  is integrable on $(0,1)$ but blows up close to $0$. 
+  is integrable on $(0,1)$ but blows up close to $0$.
 \end{rem}
 
-\begin{pro}[$L^{0}$ is Dedekind Complete]\label{pro:5}
-$L^{0}$ is a Dedekind complete space when $X$ is finite or countable
-union of sets with finite measure --- every bounded subset of the
-positive cone $(L^0)^+$ has a supremum. 
+\begin{pro}[$L_{0}$ is Dedekind Complete]\label{pro:5}
+  $L_{0}$ is a Dedekind complete space when $X$ is $\sigma$-finite. By
+  definition, this is equivalent to saying that that every bounded
+  upward directed subset of the positive cone $(L_0)^+$ has a
+  supremum.
 \end{pro}
 
 \begin{proof}
+  Suppose we have a subset $W \subset (L_0)^+$ that is bounded above
+  by $v \in L_0$ --- so for all $w \in W$ we have $0 \leq w(x) \leq
+  v(x)$ for almost every $x \in X$, or equivalently $0 \leq w \leq
+  v$. Without loss of generality, let $W$ contain all finite suprema
+  of its elements (since this expanded set will have the same supremum
+  as $W$). We would like to show that $W$ has a supremum. First,
+  consider the case where $v$ is a bounded function --- in this case,
+  we know that $v$ is then Lebesgue integrable and $\int\limits_X vdx$
+  exists as a real number.
+
+  Define the set $A \subset \R$ to be the integrals of the elements of
+  $W$, so that $A = \Set{\int\limits_X w dx : w \in W}$. Since for all
+  $w \in W$, $0 \leq w \leq v$ we have $\int\limits_X w dx \leq
+  \int\limits_X v dx$ and so $A$ is a bounded subset of real
+  numbers. Thus $\alpha = \sup(A)$ exists and there is a sequence of
+  elements $\Set{w_n \in W}$ and $w_0 \in L_0$ such that
+  $\int\limits_X w_0 dx = \alpha$ where $\lim_{n \to \infty}
+  w_n(x)=w_{0}(x)$ almost everywhere.
+
+  Let $W_n \subset W$ be a subset of elements in that sequence,
+  $w_1,w_2,\dots,w_n$. We are interested in $\sup_n(W_n)$. Make $W_n$
+  upward directed by letting $w_n = w_1 \join w_2 \join \dots \join
+  w_n$ --- since this doesn't effect the supremum of $W_n$, assume
+  without loss of generality that $W_n$ is upward directed and so $W_n
+  \uparrow w_n$. Thus $w_0 \geq w_n$ for all $n$ and $w_0 =
+  \sup_n(W_n)$.
+
+  Observe that if we join an arbitrary element $w \in W$ to an element
+  $w_k$ of the sequence we defined earlier, we get an element of $W$,
+  since we included all finite suprema in $W$ --- in other words, $w
+  \join w_k \in W$. Furthermore, we have that $\lim_{k \to \infty} w
+  \join w_k = w \join w_0$ and so $w \join w_0 \geq w \join w_k$. Then
+
+\begin{align*}
+  \int\limits_X w \join w_0 d\P &= \lim_{k \to \infty}\int\limits_X w
+  \join w_k d\P\\
+  &\geq \lim_{k \to \infty} \int\limits_{X} w_k d\P\\
+  &= \int\limits_X w_0 d\P\\
+  &= \alpha
+\end{align*}
+
+But by the observation that $w \join w_k \in W$, we must have that
+$\lim_{k \to \infty}\int\limits_X w \join w_k d\P \leq \alpha$. Thus
+$\int\limits_X w \join w_0 - w_0 d\P = 0$, giving $w \join w_0 = w_0$
+almost everywhere which implies that $w \leq w_0$ and $w_0 = \sup(W)$.
+
+Now suppose we do not require that $v$ is a bounded function. Then we
+don't know if $\int\limits_X v d\P$ exists as a real number and we
+can't employ the same method as above. However, we can employ a
+similar strategy that exploits the behavior of meets under a limiting
+procedure. We extract a collection of subsets consisting of the meets
+of elements of $W$ and an integer multiple of the constant function
+equal to $1$ almost everywhere. Each subset is indexed by the integer
+multiple, and it's easy to see that each is bounded by the meet of $v$
+and the same integer multiple of the constant function. Since this is
+a bounded function, the suprema of these subsets exist and the
+supremum of these suprema is exactly the supremum of $W$. 
 \end{proof}
-
-\begin{pro}[$L^{p}$ is an Ideal]
-\end{pro}
-
-\begin{proof}
-\end{proof}
-
-\begin{pro}[Ideals in $L^0$ are Dedekind complete]
-\end{pro}
 
 
 \part{Order Conditional Expectation}
 
-\begin{defn}[Properties of Conditional Expectation]\label{def:1}
-  Let $\E(f|\C) : X \to R$ be the conditional expectation as defined
-  in the previous section. Define $1 : X \to R$ to be a function
-  equal to $1$ almost surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the
-  mapping $f \mapsto \E(f|\C)$.
+We now will attempt to define a conditional expectation on a Riesz
+space and show how such a construction is useful. First, we give some
+classical properties that will aid us in our definition.
+
+\begin{defn}[Properties of Conditional Expectation]\label{def:14}
+  Let $\E(f|\C) : X \to R$ be the conditional expectation
+  operator. Define $1 : X \to R$ to be a function equal to $1$ almost
+  surely, and let $\mathbf{E}=\E[\cdot|\C]$ be the mapping $f \mapsto
+  \E(f|\C)$.
   \begin{deflist}{width-text}
-  \item[(I)] $\mathbf{E}$ is linear in $L^1(X,\X,P)$.
+  \item[(I)] $\mathbf{E}$ is linear in $L_1(X,\X,P)$.
   \item[(II)] $\E(1|\C) = 1$
   \item[(III)] For each $C \in \C$ we have\footnote{This is because
       $\int\limits_C\E(\one_C \E(f|\C)|\C)dP=\int\limits_C \one_C
@@ -664,43 +763,35 @@ positive cone $(L^0)^+$ has a supremum.
       \one_C fdP=\int\limits_C fdP$ \label{fn:1}} $\E(\one_C
     E(f|\C)|\C) = \E(f|\C)$ (so $\mathbf{E}$ is \emph{idempotent})
   \item[(IV)] If $f \geq 0$, then $\E(f|\C) \geq 0$
-  \item[(V)] $f_n \rightarrow f$ in $L^1(X,\X,P) \implies \E(f_n|\C)
-    \rightarrow \E(f|\C)$ in $L^1(X,\X,P)$
+  \item[(V)] $f_n \rightarrow f$ in $L_1(X,\X,P) \implies \E(f_n|\C)
+    \rightarrow \E(f|\C)$ in $L_1(X,\X,P)$
   \end{deflist}
 \end{defn}
 
 \begin{framed}
-  Since $L^1(V,\X,\P)$ is complete, we must have that for any bounded
-  set in $L^1(V,\X,\P)$ the supremum exists in $L^1(V,\X,\P)$. Thus
-  $L^1(V,\X,\P)$ is a Dedekind complete (\textbf{Def:\ref{def:13}})
-  Riesz space (\textbf{Def:\ref{def:6}}). This suggests that
-  $\mathbf{E}$ should be a mapping on Dedekind complete Riesz
-  spaces. Moreover, by (I), (III), and (IV), this mapping should be a
-  \index{positive linear projection}positive linear projection on a
-  Riesz subspace (\textbf{Def:\ref{def:8}}). (II) says that
-  $\mathbf{E}$ should preserve weak order units
-  (\textbf{Def:\ref{def:10}}), since the smallest order ideal
-  (\textbf{Def:\ref{def:9}}) containing $1$ in $L^1(V,\X,\P)$ is the
-  entire space, and this order ideal is a band (\textbf{Def:\ref{def:9}})
-  since $L^1$ is Dedekind complete. Finally, (V) says that
-  $\mathbf{E}$ should be order continuous (\textbf{Def:\ref{def:14}}).
+  Concisely: We know that $L_1(V,\X,\P)$ is a Dedekind complete
+  (\textbf{Def:\ref{def:12}}) Riesz space (\textbf{Def:\ref{def:5}}),
+  which suggests that $\mathbf{E}$ should be a mapping on Dedekind
+  complete Riesz spaces. Moreover, by (I), (III), and (IV), this
+  mapping should be a \index{positive linear projection}positive
+  linear projection on a Riesz subspace
+  (\textbf{Def:\ref{def:7}}). (II) says that $\mathbf{E}$ should
+  preserve weak order units (\textbf{Def:\ref{def:9}}). Finally, (V)
+  says that $\mathbf{E}$ should be order continuous
+  (\textbf{Def:\ref{def:13}}).
 \end{framed}
-
-Our primary goal is to define conditional expectation in an order
-theoretical context.
 
 \begin{defn}[Conditional Expectation on Riesz Spaces]\label{def:15}
 
   The \emph{\index{order conditional expectation}order conditional
-    expectation} $\E_W: V \to W$, where $V$ is a Dedekind
-  complete Riesz space with a weak order unit and $W \subset V$ is a
-  Dedekind complete Riesz subspace, satisfies the following
-  properties:
+    expectation} $\E_W: V \to W$, where $V$ is a Dedekind complete
+  Riesz space with a weak order unit and $W \subset V$ is a Dedekind
+  complete Riesz subspace, satisfies the following properties:
 
   \begin{deflist}{width-text}
   \item[(I)] $\E_W$ is a \emph{positive linear projection}.
   \item[(II)] $\E_W$ is \emph{order continuous}.
-  \item[(III)] $\E_W$ preserves \emph{weak order units}.m
+  \item[(III)] $\E_W$ preserves \emph{weak order units}.
   \end{deflist}
 \end{defn}
 
@@ -710,34 +801,31 @@ theoretical context.
   weak order unit $d \in V$. So a positive, order continuous, linear
   projection from a Dedekind complete Riesz space to a subspace of a
   Dedekind complete Riesz space is a conditional expectation if it
-  preserves weak order units.
+  preserves weak order units. 
 \end{framed}
-
-In order to formulate the Maximal Ergodic Theorem in terms of Riesz
-spaces, we need one more definition.
 
 \begin{defn}[Band Projection]\label{def:16}
   The map $J_w(u) = \sup_n (u^+ \meet nw) - \sup_n(u^- \meet nw)$ for
   all $w \in V$ is called the \emph{\index{band projection}band
     projection} onto the band generated by $w$, ie the band $B_w =
-  \Set{v \in V | (|v| \meet nw) \uparrow_n |v|}$ (see
-  \textbf{Rem:\ref{rem:2}}) generated by $w$ when $w$ is in the
-  positive cone $V^+$.
+  \Set{v \in V | (|v| \meet nw) \uparrow_n |v|}$ (see \textbf{Remark
+    \ref{rem:2}}) generated by $w$ when $w$ is in the positive cone
+  $V^+$.
 \end{defn}
 
-Restricting $\E_W$ to a band projection onto the band generated
-by a \emph{\index{maximal operator}maximal operator} $M$ will give us
-the Maximal Ergodic Theorem.
+Restricting $\E_W$ to a band projection onto the band generated by a
+\emph{\index{maximal operator}maximal operator} $M$ will give us a
+nice example of how conditional expectation can be used. Here we prove
+the Maximal Ergodic Theorem on a Riesz space.
 
 \begin{thm}[Maximal Ergodic Theorem on Riesz Spaces]\label{thr:3}
 
-  Let $V$ be a Riesz space with a weak order unit $e$. Let
-  $\E_W$ be the conditional expectation operator on V such that
-  $e = \E_W e$, and define the operator $T : V \to V$ to be
-  positive with $\E_W|Tf| \leq \E_W|f|$, $f \in
-  \E_W$. Define the \emph{\index{nth maximal operator}nth
-    maximal operator}, for $n \geq 1$
-  \begin{equation}\label{eq:2}
+  Let $V$ be a Riesz space with a weak order unit $e$. Let $\E_W$ be
+  the conditional expectation operator on V such that $e = \E_W e$,
+  and define the operator $T : V \to V$ to be positive with $\E_W|Tf|
+  \leq \E_W|f|$, $f \in \E_W$. Define the \emph{\index{nth maximal
+      operator}nth maximal operator}, for $n \geq 1$
+  \begin{equation}\label{eq:4}
     M_n(f) = \sum\limits_{k=0}^{0} T^k f \join \sum\limits_{k=0}^{1} T^k f \join \cdots \join \sum\limits_{k=0}^{n-1} T^k f = \bigvee_{i=0}^n \sum\limits_{k=0}^{i-1} T^k f
   \end{equation}
 
@@ -745,35 +833,35 @@ the Maximal Ergodic Theorem.
   the band generated by $\Set{M_n{(f)}^+ | n \in \NN}$, and $J_{M(f)}$
   to be the band projection onto the maximal band. Then we have
 
-\begin{equation}\label{eq:3}
+\begin{equation}\label{eq:5}
   \E_W(J_{M(f)}f) \geq 0
 \end{equation}
 \end{thm}
 
 \begin{framed}
   First we prove that that for each nth maximal operator we have
-  something similar to \eqref{eq:3}. Each nth maximal operator is
+  something similar to \eqref{eq:5}. Each nth maximal operator is
   positive and thus we can write it in terms of a band projection
   $J_{M_n{(f)}^+}$ on the band generated by the nth maximal operator
   itself. We then note that the sequence of band projections
   associated with each maximal operator is upward directed to the band
   projection onto the maximal band. Once we have that
-  $\E_W(J_{M_n{(f)}^+}f) \geq 0$, we can then use the order
-  continuity of $\E_W$ to complete the proof.
+  $\E_W(J_{M_n{(f)}^+}f) \geq 0$, we can then use the order continuity
+  of $\E_W$ to complete the proof.
 \end{framed}
 
 \begin{proof}\label{prf:max-erg}
 
   Since $T$ is positive and
   \begin{equation}
-    \label{eq:4}
+    \label{eq:6}
     M_n(f) \geq \sum\limits_{k=0}^{j-1} T^k f
   \end{equation}
 
   for $j = 0,\dots,n$, we must have that for the same $j$ values,
 
   \begin{equation}
-    \label{eq:5}
+    \label{eq:7}
     TM_n(f) \geq T\sum\limits_{k=0}^{j-1} T^k f = \sum\limits_{k=0}^{j-1} T^{k+1}f
   \end{equation}
 
@@ -781,29 +869,29 @@ the Maximal Ergodic Theorem.
   have that
 
   \begin{equation}
-    \label{eq:6}
+    \label{eq:8}
     f + TM_n(f) = f + T\bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^k f 
   \end{equation}
 
-  and then \eqref{eq:5} implies that
+  and then \eqref{eq:7} implies that
 
   \begin{align}
-    \label{eq:7}
-    f + TM_n(f) &\geq f + \bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^{k+1}f  \\
-    \label{eq:8}
-    &= \bigvee_{i=0}^n( f + \sum\limits_{k=0}^{i-1} T^{k+1}f)  \\
     \label{eq:9}
+    f + TM_n(f) &\geq f + \bigvee_{i=0}^n\sum\limits_{k=0}^{i-1} T^{k+1}f  \\
+    \label{eq:10}
+    &= \bigvee_{i=0}^n( f + \sum\limits_{k=0}^{i-1} T^{k+1}f)  \\
+    \label{eq:11}
     &= \bigvee_{i=1}^{n+1}( \sum\limits_{k=0}^{i-1} T^{k}f)
   \end{align}
 
-  By \eqref{eq:4} we know that \eqref{eq:9} must be larger than
+  By \eqref{eq:6} we know that \eqref{eq:11} must be larger than
   $\sum\limits_{k=0}^{j-1} T^{k}f$ for $j = 1,\dots,n+1$. This means
   we can write
 
   \begin{align}
-    \label{eq:10}
+    \label{eq:12}
     f + TM_n(f) &\geq \bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f  \\
-    \label{eq:11}
+    \label{eq:13}
     f &\geq \bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f - TM_n(f)
   \end{align}
 
@@ -814,34 +902,33 @@ the Maximal Ergodic Theorem.
   in two different form, the trivial one
 
   \begin{equation}
-    \label{eq:12}
+    \label{eq:14}
     M_n(f) = J_{M_n{(f)}^+}M_n(f) 
   \end{equation}
 
   and another
 
   \begin{align}
-    \label{eq:13}
+    \label{eq:15}
     M_n(f) &= 0 \join \bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f \\
-    \label{eq:14}
+    \label{eq:16}
     &= J_{M_n{(f)}^+}\bigvee_{i=1}^n\sum\limits_{k=0}^{i-1} T^{k}f
   \end{align}
 
-  Thus we can apply $J_{M_n{(f)}^+}$ to \eqref{eq:11} and substitute,
+  Thus we can apply $J_{M_n{(f)}^+}$ to \eqref{eq:13} and substitute,
   yielding
 
   \begin{align}
-    \label{eq:15}
+    \label{eq:17}
     J_{M_n{(f)}^+}(f) &\geq J_{M_n{(f)}^+}(\bigvee_{i=1}^{n}\sum\limits_{k=0}^{i-1} T^{k}f - TM_n(f)) \\
-    \label{eq:16}
+    \label{eq:18}
     &= M_n(f)-(J_{M_n{(f)}^+}TM_n(f))
   \end{align}
 
-  Finally, applying $\E_W$, using that $\E_W J=J\E_W$
-  and $\E_W T(f) \leq \E_W(f) $ (recall that $T$ is a
-  positive operator) gives
+  Finally, applying $\E_W$, using that $\E_W J=J\E_W$ and $\E_W T(f)
+  \leq \E_W(f) $ (recall that $T$ is a positive operator) gives
   \begin{align*}
-    \label{eq:17}
+    \label{eq:19}
     \E_W J_{M_n{(f)}^+}(f)&\geq \E_W M_n(f)-\E_W(J_{M_n{(f)}^+}TM_n(f)) \\
     &\geq \E_W M_n(f)-\E_W(J_{M_n{(f)}^+}M_n(f)) \\
     &= \E_W(M_n(f)-(J_{M_n{(f)}^+}M_n(f))) \\
@@ -850,7 +937,7 @@ the Maximal Ergodic Theorem.
   \end{align*}
 
 \end{proof}
-
+\bibliography{measurable_categories_v1.bib} \bibliographystyle{plain}
 \printindex
 \end{document}
 		
