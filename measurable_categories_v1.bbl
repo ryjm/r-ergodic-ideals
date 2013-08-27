@@ -1,9 +1,37 @@
 \begin{thebibliography}{1}
 
+\bibitem{2010conditional}
+{\em Conditional Measures and Applications}.
+\newblock Monographs and textbooks in pure and applied mathematics. Taylor \&
+  Francis, 2010.
+
+\bibitem{Jiang:2009:UDG:1577069.1577105}
+Wenxin Jiang.
+\newblock On uniform deviations of general empirical risks with unboundedness,
+  dependence, and high dimensionality.
+\newblock {\em J. Mach. Learn. Res.}, 10:977--996, June 2009.
+
+\bibitem{Kuo2004435}
+Wen-Chi Kuo, Coenraad~C.A. Labuschagne, and Bruce~A. Watson.
+\newblock Discrete-time stochastic processes on riesz spaces.
+\newblock {\em Indagationes Mathematicae}, 15(3):435 -- 451, 2004.
+
+\bibitem{Kuo2005509}
+Wen-Chi Kuo, Coenraad~C.A. Labuschagne, and Bruce~A. Watson.
+\newblock Conditional expectations on riesz spaces.
+\newblock {\em Journal of Mathematical Analysis and Applications}, 303(2):509
+  -- 521, 2005.
+
 \bibitem{Kuo2007422}
 Wen-Chi Kuo, Coenraad~C.A. Labuschagne, and Bruce~A. Watson.
 \newblock Ergodic theory and the strong law of large numbers on riesz spaces.
 \newblock {\em Journal of Mathematical Analysis and Applications}, 325(1):422
   -- 437, 2007.
+
+\bibitem{2007arXiv0707.0322S}
+I.~{Steinwart} and M.~{Anghel}.
+\newblock {Consistency of support vector machines for forecasting the evolution
+  of an unknown ergodic dynamical system from observations with unknown noise}.
+\newblock {\em ArXiv e-prints}, July 2007.
 
 \end{thebibliography}
